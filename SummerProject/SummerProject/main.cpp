@@ -1,13 +1,21 @@
 //main.cpp
+#include <iostream>
 #include "SFML\Graphics.hpp"
+#include "Core.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	Core core;
+	if (!core.initialize())
+	{
+		std::cout << "there is something wrong" << std::endl;
+	}
+	core.run();
+	/*sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
-
-	while (window.isOpen())
+*/
+	/*while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -19,6 +27,6 @@ int main()
 		window.clear();
 		window.draw(shape);
 		window.display();
-	}
+	}*/
 	return 0;
 }

@@ -11,6 +11,7 @@ public:
 	~CircleCollider();
 
 	virtual bool overlap(Collider* other, sf::Vector2f& offset);
+	virtual void onCollision(Collider* other);
 
 private:
 	float m_radius;

@@ -1,5 +1,5 @@
 //BoxCollider.cpp
-
+#include <iostream>
 #include "BoxCollider.h"
 
 BoxCollider::BoxCollider(sf::Vector2f pos, sf::Vector2f ext)
@@ -46,4 +46,10 @@ bool BoxCollider::overlap(Collider* other, sf::Vector2f& offset)
 		}
 	}
 	return false;
+}
+
+void BoxCollider::onCollision(Collider* other)
+{
+	std::cout << "BoxCollider::onCollision()" << std::endl;
+	//other->parent->onCollision;
 }

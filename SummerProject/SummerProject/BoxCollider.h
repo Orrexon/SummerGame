@@ -10,7 +10,8 @@ public:
 	BoxCollider(sf::Vector2f pos, sf::Vector2f ext);
 	~BoxCollider(){};
 
-	bool overlap(Collider* other, sf::Vector2f& offset);
+	virtual bool overlap(Collider* other, sf::Vector2f& offset);
+	virtual void onCollision(Collider* other);
 
 private:
 	sf::Vector2f m_extention;

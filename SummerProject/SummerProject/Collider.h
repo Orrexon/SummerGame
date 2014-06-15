@@ -7,7 +7,6 @@
 class Collider
 {
 public:
-
 	virtual bool overlap(Collider* other, sf::Vector2f& offset) = 0;
 	virtual void onCollision(Collider* other) = 0;
 

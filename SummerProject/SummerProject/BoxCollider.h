@@ -13,6 +13,8 @@ public:
 	virtual bool overlap(Collider* other, sf::Vector2f& offset);
 	virtual void onCollision(Collider* other);
 
+	sf::Vector2f& GetExtention() { return m_extention; }
+
 private:
 	sf::Vector2f m_extention;
 };

@@ -2,7 +2,9 @@
 #pragma once
 #include "State.h"
 #include "Core.h"
-
+#include "GameObject.h"
+#include "Player.h"
+#include "BoxCollider.h"
 
 class StartState : public State
 {
@@ -27,7 +29,7 @@ public:
 	virtual std::string GetCurrentState();
 
 private:
-	GameStateManager* m_GameStateManager;
 	sf::RenderWindow window;
 	Core* m_core;
+	Player* m_player;
 };

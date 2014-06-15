@@ -12,6 +12,9 @@ public:
 
 	void initTestbody();
 
+	void onCollision(GameObject* other);
+
+	sf::RectangleShape& GetRect() { return TestBodyRect; }
 private:
 	sf::CircleShape TestBodyCircle;
 	sf::RectangleShape TestBodyRect;

@@ -7,7 +7,6 @@
 StartState::StartState(Core* p_Core )
 { 
 	m_sCurrentState = "StartState";
-	m_GameStateManager = p_Core->m_GameMgr;
 	m_core = p_Core;
 	
 }
@@ -18,6 +17,9 @@ StartState::StartState(Core* p_Core )
 /*	Called upon entering state */
 bool StartState::EnterState()
 {
+	BoxCollider* collider = new BoxCollider (sf::Vector2f(50, 50), sf::Vector2f(100, 100));
+	m_player = new Player(collider, sf::Vector2f(50, 50));
+	m_player->initTestbody();
 	Update(m_core->m_fdeltatime);
 	return true;
 }
@@ -31,6 +33,7 @@ void StartState::ExitState(){}
 Handles State Update */
 bool StartState::Update(float p_fDeltatime)
 {
+	m_player->update(p_fDeltatime);
 	Draw();
 	return true;
 }
@@ -42,6 +45,7 @@ void StartState::Draw()
 	sh.setPosition(50, 100);
 	sh.setRadius(25.f);
 	m_core->window.draw(sh);
+	m_core->window.draw(m_player->GetRect());
 }
 
 /*	Changes state to the states default Next State */

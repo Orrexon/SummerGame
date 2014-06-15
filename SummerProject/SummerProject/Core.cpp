@@ -1,5 +1,5 @@
 //Core.cpp
-
+#include <iostream>
 #include "Core.h"
 #include "StartState.h"
 
@@ -15,9 +15,9 @@ Core::~Core()
 
 bool Core::initialize()
 {
+	window.create(sf::VideoMode(500, 500), "SummerGame");
 	m_GameMgr->Attach(new StartState(this));
 	m_GameMgr->SetState("StartState");
-	window.create(sf::VideoMode(500, 500), "SummerGame");
 	return true;
 }
 
@@ -43,7 +43,7 @@ void Core::updateDeltatime()
 	m_timeSinceLastUpdate = m_clock.restart();
 
 	m_fdeltatime = m_timeSinceLastUpdate.asSeconds();
-	//cout << m_fDeltaTime << endl;
+	//std::cout << m_fdeltatime << std::endl;
 	if (m_fdeltatime > 0.1f)
 	{
 		m_fdeltatime = 0.1f;

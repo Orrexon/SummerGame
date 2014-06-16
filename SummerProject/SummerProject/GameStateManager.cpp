@@ -29,7 +29,7 @@ void GameStateManager::Attach(State *p_pState)
 	m_aStates.push_back(p_pState);
 }
 /* Calls CurrentStates Update */
-void GameStateManager::Update(float p_fDeltatime)
+void GameStateManager::Update(float& p_fDeltatime)
 {
 	m_pCurrentState->Update(p_fDeltatime);
 }

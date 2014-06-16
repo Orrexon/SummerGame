@@ -15,7 +15,7 @@ public:
 	/* Attaches new State to StateManager */
 	void Attach(State *p_pState);
 	/* Calls CurrentStates Update */
-	void Update(float p_fDeltatime);
+	void Update(float& p_fDeltatime);
 	/* Calls CurrentStates Draw */
 	void Draw();
 	/* Changes CurrentState into string parameter*/

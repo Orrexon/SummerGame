@@ -3,12 +3,14 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "BoxCollider.h"
-#include "PlatformObject.h"
-Player::Player(Collider* collider, sf::Vector2f position)
+
+
+Player::Player(Collider* collider, sf::Vector2f position, InputManager* input)
 {
 	m_boxCollider = dynamic_cast<BoxCollider*>(collider);
 	m_boxCollider->setParent(this);
 	m_position = position;
+	m_inputMgr = input;
 	m_type = "Player";
 	m_velocity = { 0.f, 0.f };
 	onGround = false;
@@ -24,35 +26,32 @@ void Player::initTestbody()
 
 void Player::update(float deltatime)
 {
-	m_velocity = { 0.0f, 0.0f };
-	sf::Vector2f gravity = { 0.f, 0.05f };
-	sf::Vector2f jumpvel = { 0.f, -0.3f };
+	
+	const sf::Vector2f gravity = { 0.f, 9.8f };
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		m_velocity = { 0.1f, 0.0f };
+		m_velocity.x = deltatime*200.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		m_velocity = { -0.1f, 0.0f };
+		m_velocity.x = deltatime*-200.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		m_velocity = { 0.0f, -0.1f };
+		m_velocity.y = deltatime*-200.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		m_velocity = { 0.0f, 0.1f };
+		m_velocity.y = deltatime*200.f;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (m_inputMgr->IsDownOnce(sf::Keyboard::Space) && onGround)
 	{
-		m_velocity += jumpvel;
+		m_velocity.y = -gravity.y;
 		onGround = false;
 	}
-	if (!onGround)
-	{
-		m_velocity += gravity;
-	}
-	
+	m_velocity.x *= 0.99f;
+	m_velocity.y *= 0.985f;
+	m_velocity.y += deltatime * gravity.y;
 	m_position += m_velocity;
 	m_boxCollider->SetPosition(m_position);
 	TestBodyRect.setPosition(m_position);
@@ -60,10 +59,13 @@ void Player::update(float deltatime)
 
 void Player::onCollision(GameObject* other)
 {
-	
-	if (dynamic_cast<PlatformObject*>(other) != nullptr)
+	PlatformObject* platform = dynamic_cast<PlatformObject*>(other);
+	if (platform != nullptr)
 	{
-		onGround = true;
+		if (m_position.y < platform->getPosition().y)
+		{
+  			onGround = true;
+		}
 	}
 	m_position += m_boxCollider->getOffset();
 	//printf("Player::onCollision()\n")

@@ -7,6 +7,10 @@ Core::Core()
 {
 	m_GameMgr = new GameStateManager;
 	m_collMgr = new CollisionManager;
+	m_inputMgr = new InputManager;
+
+	m_fdeltatime = 0.f;
+	m_clock.restart();
 }
 Core::~Core()
 {
@@ -14,11 +18,14 @@ Core::~Core()
 	m_GameMgr = nullptr;
 	delete m_collMgr;
 	m_collMgr = nullptr;
+	delete m_inputMgr;
+	m_inputMgr = nullptr;
 }
 
 bool Core::initialize()
 {
 	window.create(sf::VideoMode(500, 500), "SummerGame");
+	window.setVerticalSyncEnabled(true);
 	m_GameMgr->Attach(new StartState(this));
 	m_GameMgr->SetState("StartState");
 	return true;
@@ -32,12 +39,18 @@ void Core::run()
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+			}
+			m_inputMgr->UpdateEvents(event);
 		}
 		window.clear(sf::Color::Black);
 		updateDeltatime();
 		m_GameMgr->Update(m_fdeltatime);
 		window.display();
+
+		m_inputMgr->PostUpdateKeyboard();
+		m_inputMgr->PostUpdateMouse();
 	}
 }
 
@@ -52,3 +65,4 @@ void Core::updateDeltatime()
 		m_fdeltatime = 0.1f;
 	}
 }
+

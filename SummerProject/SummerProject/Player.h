@@ -2,10 +2,12 @@
 
 #pragma once
 #include "GameObject.h"
+#include "PlatformObject.h"
+#include "InputManager.h"
 class Player : public GameObject
 {
 public:
-	Player(Collider* collider, sf::Vector2f position);
+	Player(Collider* collider, sf::Vector2f position, InputManager* input);
 	
 
 	void update(float deltatime);
@@ -17,6 +19,7 @@ public:
 
 	sf::RectangleShape& GetRect() { return TestBodyRect; }
 private:
+	InputManager* m_inputMgr;
 	bool onGround;
 	sf::Vector2f m_velocity;
 	sf::CircleShape TestBodyCircle;

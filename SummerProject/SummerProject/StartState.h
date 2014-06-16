@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "BoxCollider.h"
+#include "PlatformObject.h"
 
 class StartState : public State
 {
@@ -32,4 +33,6 @@ private:
 	sf::RenderWindow window;
 	Core* m_core;
 	Player* m_player;
+	Player* m_player2;
+	PlatformObject* ground;
 };

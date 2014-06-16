@@ -53,6 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../deps/SFML-2.1/include</AdditionalIncludeDirectories>
+      <CompileAs>Default</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,6 +88,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlatformObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StartState.cpp" />
   </ItemGroup>
@@ -101,6 +103,7 @@
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="LoseState.h" />
     <ClInclude Include="PauseState.h" />
+    <ClInclude Include="PlatformObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />

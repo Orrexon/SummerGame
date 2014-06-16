@@ -19,7 +19,16 @@ bool StartState::EnterState()
 {
 	BoxCollider* collider = new BoxCollider (sf::Vector2f(50, 50), sf::Vector2f(100, 100));
 	m_player = new Player(collider, sf::Vector2f(50, 50));
+	BoxCollider* collider2 = new BoxCollider(sf::Vector2f(200, 100), sf::Vector2f(100, 100));
+	m_player2 = new Player(collider2, sf::Vector2f(200, 100));
+	BoxCollider* collider3 = new BoxCollider(sf::Vector2f(250, 500), sf::Vector2f(500, 100));
+	ground = new PlatformObject(collider3, sf::Vector2f(250, 500));
+	ground->initTestBody();
 	m_player->initTestbody();
+	m_player2->initTestbody();
+	m_core->m_collMgr->Attach(collider);
+	m_core->m_collMgr->Attach(collider2);
+	m_core->m_collMgr->Attach(collider3);
 	Update(m_core->m_fdeltatime);
 	return true;
 }
@@ -34,6 +43,7 @@ Handles State Update */
 bool StartState::Update(float p_fDeltatime)
 {
 	m_player->update(p_fDeltatime);
+	m_core->m_collMgr->Update();
 	Draw();
 	return true;
 }
@@ -46,6 +56,8 @@ void StartState::Draw()
 	sh.setRadius(25.f);
 	m_core->window.draw(sh);
 	m_core->window.draw(m_player->GetRect());
+	m_core->window.draw(m_player2->GetRect());
+	m_core->window.draw(ground->GetRect());
 }
 
 /*	Changes state to the states default Next State */

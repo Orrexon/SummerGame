@@ -6,11 +6,14 @@
 Core::Core()
 {
 	m_GameMgr = new GameStateManager;
+	m_collMgr = new CollisionManager;
 }
 Core::~Core()
 {
 	delete m_GameMgr;
 	m_GameMgr = nullptr;
+	delete m_collMgr;
+	m_collMgr = nullptr;
 }
 
 bool Core::initialize()

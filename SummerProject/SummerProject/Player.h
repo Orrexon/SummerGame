@@ -14,8 +14,11 @@ public:
 
 	void onCollision(GameObject* other);
 
+
 	sf::RectangleShape& GetRect() { return TestBodyRect; }
 private:
+	bool onGround;
+	sf::Vector2f m_velocity;
 	sf::CircleShape TestBodyCircle;
 	sf::RectangleShape TestBodyRect;
 };

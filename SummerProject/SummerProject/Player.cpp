@@ -66,5 +66,5 @@ void Player::onCollision(GameObject* other)
 		onGround = true;
 	}
 	m_position += m_boxCollider->getOffset();
-	//printf("don't be good niggah, be great");
+	//printf("Player::onCollision()\n")
 }

@@ -15,35 +15,34 @@ bool BoxCollider::overlap(Collider* other, sf::Vector2f& offset)
 	BoxCollider* temp = dynamic_cast<BoxCollider*>(other);
 	float A = m_extention.x / 2.f;
 	float B = temp->m_extention.x / 2.f;
-	float C = std::fabs(m_position.x - temp->m_position.x);
-
+	float C = (m_position.x ) - (temp->m_position.x );
+	
 	float X = m_extention.y / 2.f;
 	float Y = temp->m_extention.y / 2.f;
-	float Z = std::fabs(m_position.y - temp->m_position.y);
-
-	if (C <= (A + B))
+	float Z = (m_position.y) - (temp->m_position.y);
+	
+	float deltaX = (std::fabs(C) - (A + B));
+	float deltaY = (std::fabs(Z) - (X + Y));
+	
+	if (std::fabs(C) <= (A + B))
 	{
-		if (Z <= (X + Y))
+		if (std::fabs(Z) <= (X + Y))
 		{
-			float deltaX = C - (A + B);
-			float deltaY = Z - (X + Y);
-			if (deltaX > deltaY)
+			if (deltaX >= deltaY)
 			{
 				if (m_position.x >= temp->m_position.x)
 				{
 					deltaX = -deltaX;
 				}
-				offset.x = deltaX;
-				m_offset += offset;
+				m_offset.x = deltaX;
 			}
-			if (deltaX <= deltaY)
+			else
 			{
-				if (m_position.y <= temp->m_position.y)
+				if (m_position.y >= temp->m_position.y)
 				{
 					deltaY = -deltaY;
 				}
-				offset.y = deltaY;
-				m_offset -= offset;
+				m_offset.y = deltaY;
 			}
 			return true;
 		}

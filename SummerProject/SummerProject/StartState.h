@@ -33,6 +33,6 @@ private:
 	sf::RenderWindow window;
 	Core* m_core;
 	Player* m_player;
-	Player* m_player2;
+	PlatformObject* ground0;
 	PlatformObject* ground;
 };

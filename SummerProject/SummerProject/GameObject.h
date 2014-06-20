@@ -11,7 +11,8 @@ class GameObject
 public:
 
 	virtual void onCollision(GameObject* other) = 0;
-
+	virtual void update(float deltatime) = 0;
+	virtual BoxCollider* getBoxCollider() = 0;
 protected:
 	std::string m_type;
 	sf::Vector2f m_position;

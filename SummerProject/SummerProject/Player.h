@@ -16,6 +16,7 @@ public:
 
 	void onCollision(GameObject* other);
 
+	BoxCollider* getBoxCollider() { return m_boxCollider; }
 
 	sf::RectangleShape& GetRect() { return TestBodyRect; }
 private:

@@ -14,17 +14,27 @@ Core::Core()
 }
 Core::~Core()
 {
-	delete m_GameMgr;
-	m_GameMgr = nullptr;
-	delete m_collMgr;
-	m_collMgr = nullptr;
-	delete m_inputMgr;
-	m_inputMgr = nullptr;
+	if (m_GameMgr != nullptr)
+	{
+		delete m_GameMgr;
+		m_GameMgr = nullptr;
+	}
+	if (m_collMgr != nullptr)
+	{
+		delete m_collMgr;
+		m_collMgr = nullptr;
+	}
+	if (m_inputMgr != nullptr)
+	{
+		delete m_inputMgr;
+		m_inputMgr = nullptr;
+	}
+
 }
 
 bool Core::initialize()
 {
-	window.create(sf::VideoMode(500, 500), "SummerGame");
+	window.create(sf::VideoMode(1000, 1000), "SummerGame");
 	window.setVerticalSyncEnabled(true);
 	m_GameMgr->Attach(new StartState(this));
 	m_GameMgr->SetState("StartState");

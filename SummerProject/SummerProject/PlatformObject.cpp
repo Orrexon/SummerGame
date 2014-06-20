@@ -11,12 +11,20 @@ PlatformObject::PlatformObject(Collider* collider, sf::Vector2f position)
 }
 void PlatformObject::initTestBody()
 {
-	m_TestBodyRect.setFillColor(sf::Color::Yellow);
 	m_TestBodyRect.setSize(m_boxCollider->GetExtention());
-	m_TestBodyRect.setOrigin(m_boxCollider->GetExtention() / 2.f);
+	m_TestBodyRect.setFillColor(sf::Color::Yellow);
 	m_TestBodyRect.setPosition(m_position);
+	m_TestBodyRect.setOrigin(m_TestBodyRect.getSize() / 2.f);
+	
+}
+
+void PlatformObject::update(float deltatime)
+{
+	/*m_boxCollider->SetPosition(m_position);
+	m_TestBodyRect.setPosition(m_position);*/
 }
 void PlatformObject::onCollision(GameObject* other)
 {
-	printf("GROUNDNDNDNDNDNDNDNDNDNDNDNDNDNDND");
+	
+	//printf("GROUNDNDNDNDNDNDNDNDNDNDNDNDNDNDND");
 }

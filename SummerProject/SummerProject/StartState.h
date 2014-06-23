@@ -39,4 +39,5 @@ private:
 	PlatformObject* ground;
 	Bullet* bullet0;
 	Bullet* bullet1;
+	Bullet* bullet2;
 };

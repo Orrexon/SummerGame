@@ -27,12 +27,10 @@ bool StartState::EnterState()
 	bullet0 = new Bullet(collider4, sf::Vector2f(300, 200));
 	CircleCollider* collider5 = new CircleCollider(sf::Vector2f(300, 200), 10.f);
 	bullet1 = new Bullet(collider5, sf::Vector2f(600, 200));
-	//ground->initTestBody();
-	//ground0->initTestBody();
+	CircleCollider* collider6 = new CircleCollider(sf::Vector2f(300, 300), 10.f);
+	bullet2 = new Bullet(collider6, sf::Vector2f(300, 300));
+
 	m_player->initTestbody();
-	//bullet0->InitTestBody();
-	//bullet1->InitTestBody();
-	
 	
 	bullet0->setVelocity(sf::Vector2f(2.f, 0.f));
 	bullet1->setVelocity(sf::Vector2f(-2.f, 0.f));
@@ -41,12 +39,14 @@ bool StartState::EnterState()
 	m_core->m_GameObjMgr->attach(ground0);
 	m_core->m_GameObjMgr->attach(bullet0);
 	m_core->m_GameObjMgr->attach(bullet1);
+	m_core->m_GameObjMgr->attach(bullet2);
 
 	m_core->m_collMgr->Attach(m_player->getCollider());
 	m_core->m_collMgr->Attach(ground0->getCollider());
 	m_core->m_collMgr->Attach(ground->getCollider());
 	m_core->m_collMgr->Attach(bullet0->getCollider());
 	m_core->m_collMgr->Attach(bullet1->getCollider());
+	m_core->m_collMgr->Attach(bullet2->getCollider());
 
 	m_core->m_GameObjMgr->initTestBodies();
 
@@ -94,14 +94,7 @@ void StartState::Draw()
 	m_core->window.draw(m_player->GetRect());
 	m_core->window.draw(ground0->GetRect());
 	m_core->m_GameObjMgr->draw(m_core->window);
-	/*if (bullet0 != nullptr)
-	{
-		m_core->window.draw(bullet0->getCircle());
-	}
-	if (bullet1 != nullptr)
-	{
-		m_core->window.draw(bullet1->getCircle());
-	}*/
+	
 	
 }
 

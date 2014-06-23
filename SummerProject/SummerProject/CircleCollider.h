@@ -18,6 +18,7 @@ public:
 
 	void setPosition(sf::Vector2f pos) { m_position = pos; }
 	float getRadius() { return m_radius; }
+	sf::Vector2f& getPosition() { return m_position; }
 
 private:
 	float m_radius;

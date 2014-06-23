@@ -28,23 +28,27 @@ bool CircleCollider::overlap(Collider* other, sf::Vector2f& offset)
 			}
 		}
 	}
-	{
-	BoxCollider* temp = dynamic_cast<BoxCollider*> (other);
-	if (temp != nullptr)
-	{
-
-	}
-}
 	return false;
 }
 void CircleCollider::onCollision(Collider* other)
 {
-	CircleCollider* temp = dynamic_cast<CircleCollider*> (other);
-	if (temp)
 	{
-		if (!getParent()->isDead())
+		CircleCollider* temp = dynamic_cast<CircleCollider*> (other);
+		if (temp)
 		{
-			m_parent->onCollision(temp->m_parent);
+			if (!getParent()->isDead())
+			{
+				m_parent->onCollision(temp->m_parent);
+			}
+		}
+	}
+	{
+		BoxCollider* temp = dynamic_cast<BoxCollider*>(other);
+		if (temp)
+		{
+			printf("box vs bullet");
+			m_parent->onCollision(temp->getParent());
 		}
 	}
 }
+

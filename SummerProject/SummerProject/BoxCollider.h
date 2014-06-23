@@ -3,7 +3,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Collider.h"
-
+#include "MathNerd.h"
 
 class BoxCollider : public Collider
 {
@@ -19,6 +19,7 @@ public:
 
 	sf::Vector2f& GetExtention() { return m_extention; }
 	void SetPosition(sf::Vector2f pos) { m_position = pos; }
+	sf::Vector2f& getPosition() { return m_position; }
 	sf::Vector2f& getOffset() { return m_offset; }
 
 private:

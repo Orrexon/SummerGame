@@ -92,6 +92,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MathNerd.cpp" />
     <ClCompile Include="PlatformObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StartState.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LoseState.h" />
+    <ClInclude Include="MathNerd.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PlatformObject.h" />
     <ClInclude Include="Player.h" />

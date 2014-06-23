@@ -11,6 +11,7 @@ public:
 	virtual bool overlap(Collider* other, sf::Vector2f& offset) = 0;
 	virtual void onCollision(Collider* other) = 0;
 	virtual void setParent(GameObject* parent) = 0;
+	virtual GameObject* getParent() = 0;// { return m_parent; }
 protected:
 	sf::Vector2f m_position;
 	GameObject* m_parent;

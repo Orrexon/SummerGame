@@ -14,6 +14,7 @@ Player::Player(Collider* collider, sf::Vector2f position, InputManager* input)
 	m_type = "Player";
 	m_velocity = { 0.f, 0.f };
 	onGround = false;
+	m_dead = false;
 }
 
 void Player::initTestbody()

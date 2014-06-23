@@ -11,10 +11,14 @@ public:
 	void initTestBody();
 	virtual void onCollision(GameObject* other);
 	virtual void update(float deltatime);
-	virtual BoxCollider* getBoxCollider() { return m_boxCollider; }
+	//virtual BoxCollider* getBoxCollider() { return m_boxCollider; }
+	Collider* getCollider() { return m_boxCollider; }
 
 	sf::RectangleShape GetRect() { return m_TestBodyRect; }
 	sf::Vector2f getPosition() { return m_position; }
+
+	bool isDead() { return m_dead; }
 private:
 	sf::RectangleShape m_TestBodyRect;
+	BoxCollider* m_boxCollider;
 };

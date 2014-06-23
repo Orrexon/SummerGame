@@ -8,6 +8,7 @@ Core::Core()
 	m_GameMgr = new GameStateManager;
 	m_collMgr = new CollisionManager;
 	m_inputMgr = new InputManager;
+	m_GameObjMgr = new GameObjectManager;
 
 	m_fdeltatime = 0.f;
 	m_clock.restart();
@@ -28,6 +29,11 @@ Core::~Core()
 	{
 		delete m_inputMgr;
 		m_inputMgr = nullptr;
+	}
+	if (m_GameObjMgr != nullptr)
+	{
+		delete m_GameObjMgr;
+		m_GameObjMgr = nullptr;
 	}
 
 }

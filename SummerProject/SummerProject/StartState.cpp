@@ -23,12 +23,41 @@ bool StartState::EnterState()
 	ground0 = new PlatformObject(collider2, sf::Vector2f(200, 100));
 	BoxCollider* collider3 = new BoxCollider(sf::Vector2f(250, 500), sf::Vector2f(500, 100));
 	ground = new PlatformObject(collider3, sf::Vector2f(250, 500));
-	ground->initTestBody();
-	ground0->initTestBody();
+	CircleCollider* collider4 = new CircleCollider(sf::Vector2f(300, 200), 10.f);
+	bullet0 = new Bullet(collider4, sf::Vector2f(300, 200));
+	CircleCollider* collider5 = new CircleCollider(sf::Vector2f(300, 200), 10.f);
+	bullet1 = new Bullet(collider5, sf::Vector2f(600, 200));
+	//ground->initTestBody();
+	//ground0->initTestBody();
 	m_player->initTestbody();
-	m_core->m_collMgr->Attach(collider);
-	m_core->m_collMgr->Attach(collider2);
-	m_core->m_collMgr->Attach(collider3);
+	//bullet0->InitTestBody();
+	//bullet1->InitTestBody();
+	
+	
+	bullet0->setVelocity(sf::Vector2f(2.f, 0.f));
+	bullet1->setVelocity(sf::Vector2f(-2.f, 0.f));
+	
+	m_core->m_GameObjMgr->attach(ground);
+	m_core->m_GameObjMgr->attach(ground0);
+	m_core->m_GameObjMgr->attach(bullet0);
+	m_core->m_GameObjMgr->attach(bullet1);
+
+	m_core->m_collMgr->Attach(m_player->getCollider());
+	m_core->m_collMgr->Attach(ground0->getCollider());
+	m_core->m_collMgr->Attach(ground->getCollider());
+	m_core->m_collMgr->Attach(bullet0->getCollider());
+	m_core->m_collMgr->Attach(bullet1->getCollider());
+
+	m_core->m_GameObjMgr->initTestBodies();
+
+	bullet0 = nullptr;
+	bullet1 = nullptr;
+	collider = nullptr;
+	collider2 = nullptr;
+	collider3 = nullptr;
+	collider4 = nullptr;
+	collider5 = nullptr;
+
 	Update(m_core->m_fdeltatime);
 	return true;
 }
@@ -44,9 +73,12 @@ bool StartState::Update(float p_fDeltatime)
 {
 	
 	m_player->update(p_fDeltatime);
-	ground->update(p_fDeltatime);
-	ground0->update(p_fDeltatime);
+	m_core->m_GameObjMgr->update(p_fDeltatime);
 	m_core->m_collMgr->Update();
+	m_core->m_collMgr->RemoveColliders();
+	m_core->m_GameObjMgr->removeObjects();
+	
+	
 	Draw();
 	return true;
 }
@@ -61,6 +93,16 @@ void StartState::Draw()
 	m_core->window.draw(ground->GetRect());
 	m_core->window.draw(m_player->GetRect());
 	m_core->window.draw(ground0->GetRect());
+	m_core->m_GameObjMgr->draw(m_core->window);
+	/*if (bullet0 != nullptr)
+	{
+		m_core->window.draw(bullet0->getCircle());
+	}
+	if (bullet1 != nullptr)
+	{
+		m_core->window.draw(bullet1->getCircle());
+	}*/
+	
 }
 
 /*	Changes state to the states default Next State */

@@ -8,6 +8,7 @@ PlatformObject::PlatformObject(Collider* collider, sf::Vector2f position)
 	m_boxCollider->setParent(this);
 	m_position = position;
 	m_type = "PlatformObject";
+	m_dead = false;
 }
 void PlatformObject::initTestBody()
 {

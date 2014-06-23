@@ -14,6 +14,7 @@ public:
 	void Attach(Collider* collider);
 
 	void Update();
+	void RemoveColliders();
 
 private:
 	std::vector<Collider*> m_aColliders;

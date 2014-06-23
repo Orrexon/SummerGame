@@ -13,38 +13,41 @@ bool BoxCollider::overlap(Collider* other, sf::Vector2f& offset)
 {
 	m_offset = { 0.f, 0.f };
 	BoxCollider* temp = dynamic_cast<BoxCollider*>(other);
-	float A = m_extention.x / 2.f;
-	float B = temp->m_extention.x / 2.f;
-	float C = (m_position.x ) - (temp->m_position.x );
-	
-	float X = m_extention.y / 2.f;
-	float Y = temp->m_extention.y / 2.f;
-	float Z = (m_position.y) - (temp->m_position.y);
-	
-	float deltaX = (std::fabs(C) - (A + B));
-	float deltaY = (std::fabs(Z) - (X + Y));
-	
-	if (std::fabs(C) <= (A + B))
+	if (temp != nullptr)
 	{
-		if (std::fabs(Z) <= (X + Y))
+		float A = m_extention.x / 2.f;
+		float B = temp->m_extention.x / 2.f;
+		float C = (m_position.x) - (temp->m_position.x);
+
+		float X = m_extention.y / 2.f;
+		float Y = temp->m_extention.y / 2.f;
+		float Z = (m_position.y) - (temp->m_position.y);
+
+		float deltaX = (std::fabs(C) - (A + B));
+		float deltaY = (std::fabs(Z) - (X + Y));
+
+		if (std::fabs(C) <= (A + B))
 		{
-			if (deltaX >= deltaY)
+			if (std::fabs(Z) <= (X + Y))
 			{
-				if (m_position.x >= temp->m_position.x)
+				if (deltaX >= deltaY)
 				{
-					deltaX = -deltaX;
+					if (m_position.x >= temp->m_position.x)
+					{
+						deltaX = -deltaX;
+					}
+					m_offset.x = deltaX;
 				}
-				m_offset.x = deltaX;
-			}
-			else
-			{
-				if (m_position.y >= temp->m_position.y)
+				else
 				{
-					deltaY = -deltaY;
+					if (m_position.y >= temp->m_position.y)
+					{
+						deltaY = -deltaY;
+					}
+					m_offset.y = deltaY;
 				}
-				m_offset.y = deltaY;
+				return true;
 			}
-			return true;
 		}
 	}
 	return false;

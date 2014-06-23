@@ -5,7 +5,9 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 #include "PlatformObject.h"
+#include "Bullet.h"
 
 class StartState : public State
 {
@@ -35,4 +37,6 @@ private:
 	Player* m_player;
 	PlatformObject* ground0;
 	PlatformObject* ground;
+	Bullet* bullet0;
+	Bullet* bullet1;
 };

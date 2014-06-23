@@ -7,6 +7,13 @@ class Collider;
 class BoxCollider;
 class CircleCollider;
 
+enum BulletId
+{
+	ENEMY_BULLET,
+	PLAYER_BULLET,
+	BULLET_ID_COUNT
+};
+
 class GameObject
 {
 public:
@@ -19,6 +26,7 @@ protected:
 	std::string m_type;
 	sf::Vector2f m_position;
 	bool m_dead;
+	BulletId m_id;
 	//Collider* m_collider;
 	/*BoxCollider* m_boxCollider;
 	CircleCollider* m_circleCollider;*/

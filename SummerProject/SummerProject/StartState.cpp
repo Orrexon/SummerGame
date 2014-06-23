@@ -50,14 +50,6 @@ bool StartState::EnterState()
 
 	m_core->m_GameObjMgr->initTestBodies();
 
-	bullet0 = nullptr;
-	bullet1 = nullptr;
-	collider = nullptr;
-	collider2 = nullptr;
-	collider3 = nullptr;
-	collider4 = nullptr;
-	collider5 = nullptr;
-
 	Update(m_core->m_fdeltatime);
 	return true;
 }
@@ -77,7 +69,10 @@ bool StartState::Update(float p_fDeltatime)
 	m_core->m_collMgr->Update();
 	m_core->m_collMgr->RemoveColliders();
 	m_core->m_GameObjMgr->removeObjects();
-	
+	if (m_core->m_inputMgr->IsDownOnce(sf::Keyboard::F))
+	{
+		m_player->shoot(m_core->m_GameObjMgr, m_core->m_collMgr);
+	}
 	
 	Draw();
 	return true;
@@ -85,11 +80,6 @@ bool StartState::Update(float p_fDeltatime)
 /*	Draws State*/
 void StartState::Draw()
 {
-	sf::CircleShape sh;
-	sh.setFillColor(sf::Color::Green);
-	sh.setPosition(50, 100);
-	sh.setRadius(25.f);
-	m_core->window.draw(sh);
 	m_core->window.draw(ground->GetRect());
 	m_core->window.draw(m_player->GetRect());
 	m_core->window.draw(ground0->GetRect());

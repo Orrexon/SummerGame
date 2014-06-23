@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 
 
 Player::Player(Collider* collider, sf::Vector2f position, InputManager* input)
@@ -50,6 +51,7 @@ void Player::update(float deltatime)
 		m_velocity.y = -gravity.y;
 		onGround = false;
 	}
+	
 	if (!onGround)
 	{
 		m_velocity.y += deltatime * gravity.y;
@@ -75,4 +77,22 @@ void Player::onCollision(GameObject* other)
 	
 	//m_velocity *= 0.9f;
 	//printf("Player::onCollision()\n")
+}
+
+void Player::shoot(GameObjectManager* gameObjMgr, CollisionManager* collMgr)
+{
+	sf::Vector2f bVel = { 3.f, 0.f };
+	if (m_velocity.x < 0.f) bVel *= -1.f;
+	CircleCollider* collider = new CircleCollider(m_position, 10.f);
+	m_bullet = new Bullet(collider, m_position);
+	m_bullet->setId(PLAYER_BULLET);
+	m_bullet->setVelocity(bVel);
+	m_bullet->InitTestBody();
+	gameObjMgr->attach(m_bullet);
+	collMgr->Attach(m_bullet->getCollider());
+	
+	//avoiding danglers,
+	//actual objects are deleted elswhere from the std::vectors of the managers
+	collider = nullptr;
+	m_bullet = nullptr;
 }

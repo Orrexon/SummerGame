@@ -22,6 +22,9 @@ public:
 
 	bool isDead() { return m_dead; }
 
+	void setId(BulletId i){ m_id = i; }
+	int getId(){ return m_id; }
+
 private:
 	sf::Vector2f m_velocity;
 	CircleCollider* m_circleCollider;

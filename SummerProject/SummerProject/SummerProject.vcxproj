@@ -114,6 +114,7 @@
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PlatformObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SalesMan.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="WinState.h" />

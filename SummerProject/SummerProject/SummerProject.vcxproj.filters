@@ -125,5 +125,8 @@
     <ClInclude Include="MathNerd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SalesMan.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

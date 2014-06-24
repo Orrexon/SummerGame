@@ -34,6 +34,20 @@ void Bullet::onCollision(GameObject* other)
 			m_dead = true;
 		}
 	}
+	{
+		SalesMan* temp = dynamic_cast<SalesMan*> (other);
+		if (temp)
+		{
+			m_dead = true;
+		}
+	}
+	{
+		PlatformObject* temp = dynamic_cast<PlatformObject*> (other);
+		if (temp)
+		{
+			m_dead = true;
+		}
+	}
 }
 void Bullet::update(float deltatime)
 {

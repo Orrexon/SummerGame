@@ -8,7 +8,7 @@
 #include "CircleCollider.h"
 #include "PlatformObject.h"
 #include "Bullet.h"
-
+#include "SalesMan.h"
 class StartState : public State
 {
 public:
@@ -40,4 +40,5 @@ private:
 	Bullet* bullet0;
 	Bullet* bullet1;
 	Bullet* bullet2;
+	SalesMan* salesman;
 };

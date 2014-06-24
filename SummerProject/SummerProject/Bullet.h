@@ -3,6 +3,8 @@
 #pragma once
 #include "GameObject.h"
 #include "CircleCollider.h"
+#include "SalesMan.h"
+#include "PlatformObject.h"
 
 class Bullet : public GameObject
 {

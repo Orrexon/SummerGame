@@ -9,6 +9,7 @@ Core::Core()
 	m_collMgr = new CollisionManager;
 	m_inputMgr = new InputManager;
 	m_GameObjMgr = new GameObjectManager;
+	m_spriteMgr = new SpriteManager("../data/sprites/");
 
 	m_fdeltatime = 0.f;
 	m_clock.restart();
@@ -34,6 +35,11 @@ Core::~Core()
 	{
 		delete m_GameObjMgr;
 		m_GameObjMgr = nullptr;
+	}
+	if (m_spriteMgr != nullptr)
+	{
+		delete m_spriteMgr;
+		m_spriteMgr = nullptr;
 	}
 
 }

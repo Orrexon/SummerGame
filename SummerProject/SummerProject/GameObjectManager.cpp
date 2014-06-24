@@ -2,6 +2,7 @@
 #include "GameObjectManager.h"
 #include "PlatformObject.h"
 #include "Bullet.h"
+#include "SalesMan.h"
 GameObjectManager::GameObjectManager(){}
 
 void GameObjectManager::update(float p_delta)
@@ -24,6 +25,7 @@ void GameObjectManager::initTestBodies()
 {
 	PlatformObject* test;
 	Bullet* test1;
+	SalesMan* test2;
 	for (size_t i = 0; i < m_aGameObjects.size(); i++)
 	{
 		test = dynamic_cast<PlatformObject*>(m_aGameObjects[i]);
@@ -35,6 +37,11 @@ void GameObjectManager::initTestBodies()
 		if (test1 != nullptr)
 		{
 			test1->InitTestBody();
+		}
+		test2 = dynamic_cast<SalesMan*>(m_aGameObjects[i]);
+		if (test2)
+		{
+			test2->initTestBody();
 		}
 	}
 }
@@ -61,6 +68,10 @@ void GameObjectManager::draw(sf::RenderWindow& window)
 			if (dynamic_cast<Bullet*>(m_aGameObjects[i]))
 			{
 				window.draw(dynamic_cast<Bullet*>(m_aGameObjects[i])->getCircle());
+			}
+			if (dynamic_cast<SalesMan*>(m_aGameObjects[i]))
+			{
+				window.draw(dynamic_cast<SalesMan*>(m_aGameObjects[i])->getRect());
 			}
 		}
 	}

@@ -6,6 +6,7 @@
 #include "CollisionManager.h"
 #include "InputManager.h"
 #include "GameObjectManager.h"
+#include "SpriteManager.h"
 
 class Core
 {
@@ -24,6 +25,7 @@ public:
 	CollisionManager* m_collMgr;
 	InputManager* m_inputMgr;
 	GameObjectManager* m_GameObjMgr;
+	SpriteManager* m_spriteMgr;
 	float m_fdeltatime;
 	sf::Clock m_clock;
 	sf::Time m_timeSinceLastUpdate;

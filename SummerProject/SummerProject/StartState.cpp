@@ -29,6 +29,8 @@ bool StartState::EnterState()
 	bullet1 = new Bullet(collider5, sf::Vector2f(600, 200));
 	CircleCollider* collider6 = new CircleCollider(sf::Vector2f(300, 300), 10.f);
 	bullet2 = new Bullet(collider6, sf::Vector2f(300, 300));
+	BoxCollider* collider7 = new BoxCollider(sf::Vector2f(500, 400), sf::Vector2f(50, 40));
+	salesman = new SalesMan(collider7, sf::Vector2f(500, 400));
 
 	m_player->initTestbody();
 	
@@ -40,6 +42,7 @@ bool StartState::EnterState()
 	m_core->m_GameObjMgr->attach(bullet0);
 	m_core->m_GameObjMgr->attach(bullet1);
 	m_core->m_GameObjMgr->attach(bullet2);
+	m_core->m_GameObjMgr->attach(salesman);
 
 	m_core->m_collMgr->Attach(m_player->getCollider());
 	m_core->m_collMgr->Attach(ground0->getCollider());
@@ -47,6 +50,7 @@ bool StartState::EnterState()
 	m_core->m_collMgr->Attach(bullet0->getCollider());
 	m_core->m_collMgr->Attach(bullet1->getCollider());
 	m_core->m_collMgr->Attach(bullet2->getCollider());
+	m_core->m_collMgr->Attach(salesman->getCollider());
 
 	m_core->m_GameObjMgr->initTestBodies();
 
@@ -85,6 +89,11 @@ void StartState::Draw()
 	m_core->window.draw(ground0->GetRect());
 	m_core->m_GameObjMgr->draw(m_core->window);
 	
+	//testing spritemanager
+	sf::Sprite sp = m_core->m_spriteMgr->load("optimusprime.png", 0,0,70,70);
+	sp.setOrigin(70 / 2, 70 / 2);
+	sp.setPosition(500, 500);
+	m_core->window.draw(sp);
 	
 }
 

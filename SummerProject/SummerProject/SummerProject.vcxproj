@@ -95,6 +95,8 @@
     <ClCompile Include="MathNerd.cpp" />
     <ClCompile Include="PlatformObject.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SalesMan.cpp" />
+    <ClCompile Include="SpriteManger.cpp" />
     <ClCompile Include="StartState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +117,7 @@
     <ClInclude Include="PlatformObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SalesMan.h" />
+    <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="WinState.h" />

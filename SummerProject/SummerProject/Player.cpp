@@ -6,7 +6,7 @@
 #include "CircleCollider.h"
 
 
-Player::Player(Collider* collider, sf::Vector2f position, InputManager* input)
+Player::Player(Collider* collider, sf::Vector2f position, InputManager* input) : m_animatedSprite(nullptr)
 {
 	m_boxCollider = dynamic_cast<BoxCollider*>(collider);
 	m_boxCollider->setParent(this);
@@ -16,6 +16,20 @@ Player::Player(Collider* collider, sf::Vector2f position, InputManager* input)
 	m_velocity = { 0.f, 0.f };
 	onGround = false;
 	m_dead = false;
+	m_animator = new Animation;
+}
+Player::~Player()
+{
+	if (m_animatedSprite != nullptr)
+	{
+		delete m_animatedSprite;
+		m_animatedSprite = nullptr;
+	}
+	if (m_animator != nullptr)
+	{
+		delete m_animator;
+		m_animator = nullptr;
+	}
 }
 
 void Player::initTestbody()
@@ -24,6 +38,23 @@ void Player::initTestbody()
 	TestBodyRect.setFillColor(sf::Color::Blue);
 	TestBodyRect.setPosition(m_position);
 	TestBodyRect.setOrigin(m_boxCollider->GetExtention() / 2.f);
+}
+
+void Player::initAnimation()
+{
+	m_spriteSheet = new sf::Texture;
+	if(!m_spriteSheet->loadFromFile("../data/sprites/hero_spritesheet.png")) printf("Player::initAnimation() somethings wrong\n");
+	m_animator->setSpriteSheet(*m_spriteSheet);
+	m_animator->addFrame(sf::IntRect(0, 18, 80, 66));
+	m_animator->addFrame(sf::IntRect(80, 18, 80, 66));
+	m_animator->addFrame(sf::IntRect(160, 18, 80, 66));
+	m_animator->addFrame(sf::IntRect(240, 18, 80, 66));
+	m_animator->addFrame(sf::IntRect(320, 18, 80, 66));
+	m_animator->addFrame(sf::IntRect(400, 18, 80, 66));
+	m_animator->addFrame(sf::IntRect(480, 18, 80, 66));
+	m_animatedSprite = (new AnimatedSprite(sf::seconds(0.2), true, true));
+	m_animatedSprite->setPosition(400, 400);
+	m_animatedSprite->setAnimation(*m_animator);
 }
 
 void Player::update(float deltatime)
@@ -59,6 +90,9 @@ void Player::update(float deltatime)
 	m_position += m_velocity;
 	m_boxCollider->SetPosition(m_position);
 	TestBodyRect.setPosition(m_position);
+	m_animatedSprite->setPosition(m_position);
+	
+	m_animatedSprite->setOrigin(m_animatedSprite->getLocalBounds().width / 2, m_animatedSprite->getLocalBounds().height / 2);
 	m_velocity *= 0.9f;
 	onGround = false;
 }

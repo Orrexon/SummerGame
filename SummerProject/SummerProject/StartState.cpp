@@ -54,6 +54,9 @@ bool StartState::EnterState()
 
 	m_core->m_GameObjMgr->initTestBodies();
 
+	m_player->initAnimation();
+	m_player->getAnimatedSprite()->play(*m_player->getAnimator());
+
 	Update(m_core->m_fdeltatime);
 	return true;
 }
@@ -67,7 +70,7 @@ void StartState::ExitState(){}
 Handles State Update */
 bool StartState::Update(float p_fDeltatime)
 {
-	
+	m_player->getAnimatedSprite()->update(sf::seconds(p_fDeltatime));
 	m_player->update(p_fDeltatime);
 	m_core->m_GameObjMgr->update(p_fDeltatime);
 	m_core->m_collMgr->Update();
@@ -94,7 +97,7 @@ void StartState::Draw()
 	sp.setOrigin(70 / 2, 70 / 2);
 	sp.setPosition(500, 500);
 	m_core->window.draw(sp);
-	
+	m_core->window.draw(*m_player->getAnimatedSprite());
 }
 
 /*	Changes state to the states default Next State */

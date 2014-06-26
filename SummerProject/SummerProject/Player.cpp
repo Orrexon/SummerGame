@@ -17,6 +17,8 @@ Player::Player(Collider* collider, sf::Vector2f position, InputManager* input) :
 	onGround = false;
 	m_dead = false;
 	m_animator = new Animation;
+	bLeft = false;
+	bRight = false;
 }
 Player::~Player()
 {
@@ -60,14 +62,17 @@ void Player::initAnimation()
 void Player::update(float deltatime)
 {
 	const sf::Vector2f gravity = { 0.f, 9.8f };
-	
+	const sf::Vector2f vRight= { 1.f, 1.f };
+	const sf::Vector2f vLeft = { -1.f, 1.f };
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		m_velocity.x = deltatime*200.f;
+		bRight = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		m_velocity.x = deltatime*-200.f;
+		bLeft = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
@@ -93,8 +98,26 @@ void Player::update(float deltatime)
 	m_animatedSprite->setPosition(m_position);
 	
 	m_animatedSprite->setOrigin(m_animatedSprite->getLocalBounds().width / 2, m_animatedSprite->getLocalBounds().height / 2);
+	if (bLeft)
+	{
+		if (m_animatedSprite->getScale().x > 0)
+		{
+			m_animatedSprite->setScale(vLeft);
+		}
+		bRight = false;
+	}
+	else if (bRight)
+	{
+		if (m_animatedSprite->getScale().x < 0)
+		{
+			m_animatedSprite->setScale(vRight);
+		}
+		bLeft = false;
+	}
+	
 	m_velocity *= 0.9f;
 	onGround = false;
+	if (bLeft || bRight) bRight = false; bLeft = false;
 }
 
 void Player::onCollision(GameObject* other)

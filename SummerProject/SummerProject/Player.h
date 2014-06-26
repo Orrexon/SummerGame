@@ -39,6 +39,7 @@ private:
 	Animation* m_animator;
 	AnimatedSprite* m_animatedSprite;
 	sf::Texture* m_spriteSheet;
+	bool bLeft, bRight;
 	sf::CircleShape TestBodyCircle;
 	sf::RectangleShape TestBodyRect;
 };

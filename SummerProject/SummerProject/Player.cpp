@@ -19,6 +19,7 @@ Player::Player(Collider* collider, sf::Vector2f position, InputManager* input,
 	m_gameObjMgr = gameobjmgr;
 	m_type = "Player";
 	m_velocity = { 0.f, 0.f };
+	m_eAnimationType = IDLE;
 	onGround = false;
 	m_dead = false;
 	bLeft = false;
@@ -79,6 +80,7 @@ void Player::initAnimation()
 	insertAnimation("walking", m_animation_walking);
 	//shoot/aim
 	Animation* m_animation_shooting = new Animation;
+	m_animation_shooting->setSpriteSheet(*m_spriteSheet);
 	m_animation_shooting->addFrame(sf::IntRect(0, 210, 80, 66));
 	m_animation_shooting->addFrame(sf::IntRect(80, 210, 80, 66));
 	m_animation_shooting->addFrame(sf::IntRect(160, 210, 80, 66));
@@ -88,13 +90,15 @@ void Player::initAnimation()
 	insertAnimation("shooting", m_animation_shooting);
 	//jump
 	Animation* m_animation_jump = new Animation;
-	m_animation_jump->addFrame(sf::IntRect(0, 298, 80, 66));
+	m_animation_jump->setSpriteSheet(*m_spriteSheet);
+	//m_animation_jump->addFrame(sf::IntRect(0, 298, 80, 66));
 	m_animation_jump->addFrame(sf::IntRect(80, 298, 80, 66));
-	m_animation_jump->addFrame(sf::IntRect(160, 298, 80, 66));
-	m_animation_jump->addFrame(sf::IntRect(80, 298, 80, 66));
+	//m_animation_jump->addFrame(sf::IntRect(160, 298, 80, 66));
+	//m_animation_jump->addFrame(sf::IntRect(80, 298, 80, 66));
 	insertAnimation("jump", m_animation_jump);
 	//die need to check coordinates
 	Animation* m_animation_die = new Animation;
+	m_animation_die->setSpriteSheet(*m_spriteSheet);
 	m_animation_die->addFrame(sf::IntRect(240, 298, 80, 66));
 	m_animation_die->addFrame(sf::IntRect(320, 298, 80, 66));
 	m_animation_die->addFrame(sf::IntRect(400, 298, 80, 66));
@@ -102,10 +106,11 @@ void Player::initAnimation()
 	insertAnimation("die", m_animation_die);
 	//Duck (not the animal)
 	Animation* m_animation_duck = new Animation;
+	m_animation_duck->setSpriteSheet(*m_spriteSheet);
 	m_animation_duck->addFrame(sf::IntRect(0, 396, 80, 56));
-	m_animation_duck->addFrame(sf::IntRect(80, 396, 80, 56));
-	m_animation_duck->addFrame(sf::IntRect(160, 396, 80, 56));
+	//m_animation_duck->addFrame(sf::IntRect(80, 396, 80, 56));
 	insertAnimation("duck", m_animation_duck);
+	
 
 	m_animatedSprite = (new AnimatedSprite(sf::seconds(0.2), true, true));
 	m_animatedSprite->setPosition(400, 400);
@@ -114,6 +119,14 @@ void Player::initAnimation()
 
 void Player::update(float deltatime)
 {
+	if (!onGround)
+	{
+		m_eAnimationType = JUMPING;
+	}
+	else if(onGround && m_eAnimationType != WALKING)
+	{
+		m_eAnimationType = IDLE;
+	}
 	const sf::Vector2f gravity = { 0.f, 9.8f };
 	const sf::Vector2f vRight= { 1.f, 1.f };
 	const sf::Vector2f vLeft = { -1.f, 1.f };
@@ -122,6 +135,24 @@ void Player::update(float deltatime)
 	if (m_eAnimationType == WALKING)
 	{
 		m_animatedSprite->play(*getAnimation("walking"));
+	}
+	else if (m_eAnimationType == JUMPING)
+	{
+		m_animatedSprite->play(*getAnimation("jump"));
+		m_animatedSprite->setLooped(false);
+	}
+	else if (m_eAnimationType == IDLE)
+	{
+		m_animatedSprite->play(*getAnimation("idle"));
+	}
+	else if (m_eAnimationType == DUCKING)
+	{
+		m_animatedSprite->play(*getAnimation("duck")); 
+	}
+	else if (m_eAnimationType == SHOOTING)
+	{
+		//something's up with this
+		m_animatedSprite->play(*getAnimation("shooting"));
 	}
 	if (!onGround)
 	{
@@ -145,26 +176,30 @@ void Player::handleInput(float deltatime, sf::Vector2f gravity)
 	if (m_inputMgr->IsDown(sf::Keyboard::D))
 	{
 		m_velocity.x = deltatime*200.f;
-		if (m_eAnimationType != WALKING)m_eAnimationType = WALKING;
+		if (onGround)
+		{
+			if (m_eAnimationType != WALKING)m_eAnimationType = WALKING;
+		}
 		bRight = true;
 	}
 	if (m_inputMgr->IsReleased(sf::Keyboard::D))
 	{
 		m_animatedSprite->pause();
-		m_animatedSprite->setAnimation(*getAnimation("idle"));
-		m_animatedSprite->play();
+		m_eAnimationType = IDLE;
 	}
 	if (m_inputMgr->IsDown(sf::Keyboard::A))
 	{
 		m_velocity.x = deltatime*-200.f;
-		if (m_eAnimationType != WALKING)m_eAnimationType = WALKING;
+		if (onGround)
+		{
+			if (m_eAnimationType != WALKING)m_eAnimationType = WALKING;
+		}
 		bLeft = true;
 	}
 	if (m_inputMgr->IsReleased(sf::Keyboard::A))
 	{
 		m_animatedSprite->pause();
-		m_animatedSprite->setAnimation(*getAnimation("idle"));
-		m_animatedSprite->play();
+		m_eAnimationType = IDLE;
 	}
 	if (m_inputMgr->IsDown(sf::Keyboard::W))
 	{
@@ -172,7 +207,15 @@ void Player::handleInput(float deltatime, sf::Vector2f gravity)
 	}
 	if (m_inputMgr->IsDown(sf::Keyboard::S))
 	{
-		m_velocity.y = deltatime*200.f;
+		//m_velocity.y = deltatime*200.f;
+		if (onGround)
+		{
+			m_eAnimationType = DUCKING;
+		}
+	}
+	if (m_inputMgr->IsReleased(sf::Keyboard::S) && m_eAnimationType == DUCKING)
+	{
+		m_eAnimationType = IDLE;
 	}
 	if (m_inputMgr->IsDownOnce(sf::Keyboard::Space) && onGround)
 	{
@@ -224,6 +267,10 @@ void Player::onCollision(GameObject* other)
 
 void Player::shoot()
 {
+	//shoot animation
+	m_eAnimationType = SHOOTING;
+
+	//create bullet
 	sf::Vector2f bVel = { 3.f, 0.f };
 	if (m_velocity.x < 0.f) bVel *= -1.f;
 	CircleCollider* collider = new CircleCollider(m_position, 10.f);

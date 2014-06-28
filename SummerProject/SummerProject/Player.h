@@ -9,13 +9,26 @@
 #include "CollisionManager.h"
 #include "Animation.h"
 #include "AnimatedSprite.h"
+
+enum ANIMATION_TYPE
+{
+	IDLE,
+	WALKING,
+	SHOOTING,
+	JUMPING,
+	DUCKING,
+	DYING
+};
 class Player : public GameObject
 {
 public:
-	Player(Collider* collider, sf::Vector2f position, InputManager* input);
+	Player(Collider* collider, sf::Vector2f position, InputManager* input,
+		CollisionManager* collisionmgr, GameObjectManager* gameobjmgr);
 	~Player();
 	
 	void update(float deltatime);
+
+	void handleInput(float deltatime, sf::Vector2f gravity);
 
 	void initTestbody();
 
@@ -28,18 +41,22 @@ public:
 	Collider* getCollider() { return m_boxCollider; }
 	sf::RectangleShape& GetRect() { return TestBodyRect; }
 	bool isDead() { return m_dead; }
-	Animation* getAnimator() { return m_animator; }
+	Animation* getAnimation(std::string);
+	void insertAnimation(std::string name, Animation* animation);
 	AnimatedSprite* getAnimatedSprite() { return m_animatedSprite; }
 private:
 	InputManager* m_inputMgr;
+	CollisionManager* m_collMgr;
+	GameObjectManager* m_gameObjMgr;
 	bool onGround;
 	sf::Vector2f m_velocity;
 	BoxCollider* m_boxCollider;
 	Bullet* m_bullet;
-	Animation* m_animator;
+	std::map<std::string, Animation*> m_animations;
 	AnimatedSprite* m_animatedSprite;
 	sf::Texture* m_spriteSheet;
 	bool bLeft, bRight;
+	ANIMATION_TYPE m_eAnimationType;
 	sf::CircleShape TestBodyCircle;
 	sf::RectangleShape TestBodyRect;
 };

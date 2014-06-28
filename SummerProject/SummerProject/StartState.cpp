@@ -17,8 +17,9 @@ StartState::StartState(Core* p_Core )
 /*	Called upon entering state */
 bool StartState::EnterState()
 {
-	BoxCollider* collider = new BoxCollider (sf::Vector2f(50, 50), sf::Vector2f(100, 100));
-	m_player = new Player(collider, sf::Vector2f(50, 50), m_core->m_inputMgr);
+	BoxCollider* collider = new BoxCollider (sf::Vector2f(50, 50), sf::Vector2f(50, 66));
+	m_player = new Player(collider, sf::Vector2f(50, 50), m_core->m_inputMgr,
+		m_core->m_collMgr, m_core->m_GameObjMgr);
 	BoxCollider* collider2 = new BoxCollider(sf::Vector2f(200, 100), sf::Vector2f(100, 100));
 	ground0 = new PlatformObject(collider2, sf::Vector2f(200, 100));
 	BoxCollider* collider3 = new BoxCollider(sf::Vector2f(250, 500), sf::Vector2f(500, 100));
@@ -55,7 +56,7 @@ bool StartState::EnterState()
 	m_core->m_GameObjMgr->initTestBodies();
 
 	m_player->initAnimation();
-	m_player->getAnimatedSprite()->play(*m_player->getAnimator());
+	m_player->getAnimatedSprite()->play(*m_player->getAnimation("idle"));
 
 	Update(m_core->m_fdeltatime);
 	return true;
@@ -76,10 +77,6 @@ bool StartState::Update(float p_fDeltatime)
 	m_core->m_collMgr->Update();
 	m_core->m_collMgr->RemoveColliders();
 	m_core->m_GameObjMgr->removeObjects();
-	if (m_core->m_inputMgr->IsDownOnce(sf::Keyboard::F))
-	{
-		m_player->shoot(m_core->m_GameObjMgr, m_core->m_collMgr);
-	}
 	
 	Draw();
 	return true;

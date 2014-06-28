@@ -30,13 +30,15 @@ public:
 
 	void handleInput(float deltatime, sf::Vector2f gravity);
 
+	void scaleSprite(const sf::Vector2f, const sf::Vector2f);
+
 	void initTestbody();
 
 	void initAnimation();
 
 	void onCollision(GameObject* other);
 
-	void shoot(GameObjectManager* gameObjMgr, CollisionManager* collMgr);
+	void shoot();
 
 	Collider* getCollider() { return m_boxCollider; }
 	sf::RectangleShape& GetRect() { return TestBodyRect; }

@@ -77,6 +77,35 @@ void Player::initAnimation()
 	m_animation_walking->addFrame(sf::IntRect(320, 115, 80, 66));
 	m_animation_walking->addFrame(sf::IntRect(400, 115, 80, 66));
 	insertAnimation("walking", m_animation_walking);
+	//shoot/aim
+	Animation* m_animation_shooting = new Animation;
+	m_animation_shooting->addFrame(sf::IntRect(0, 210, 80, 66));
+	m_animation_shooting->addFrame(sf::IntRect(80, 210, 80, 66));
+	m_animation_shooting->addFrame(sf::IntRect(160, 210, 80, 66));
+	m_animation_shooting->addFrame(sf::IntRect(240, 210, 80, 66));
+	m_animation_shooting->addFrame(sf::IntRect(320, 210, 80, 66));
+	m_animation_shooting->addFrame(sf::IntRect(400, 210, 80, 66));
+	insertAnimation("shooting", m_animation_shooting);
+	//jump
+	Animation* m_animation_jump = new Animation;
+	m_animation_jump->addFrame(sf::IntRect(0, 298, 80, 66));
+	m_animation_jump->addFrame(sf::IntRect(80, 298, 80, 66));
+	m_animation_jump->addFrame(sf::IntRect(160, 298, 80, 66));
+	m_animation_jump->addFrame(sf::IntRect(80, 298, 80, 66));
+	insertAnimation("jump", m_animation_jump);
+	//die need to check coordinates
+	Animation* m_animation_die = new Animation;
+	m_animation_die->addFrame(sf::IntRect(240, 298, 80, 66));
+	m_animation_die->addFrame(sf::IntRect(320, 298, 80, 66));
+	m_animation_die->addFrame(sf::IntRect(400, 298, 80, 66));
+	m_animation_die->addFrame(sf::IntRect(500, 298, 80, 66));
+	insertAnimation("die", m_animation_die);
+	//Duck (not the animal)
+	Animation* m_animation_duck = new Animation;
+	m_animation_duck->addFrame(sf::IntRect(0, 396, 80, 56));
+	m_animation_duck->addFrame(sf::IntRect(80, 396, 80, 56));
+	m_animation_duck->addFrame(sf::IntRect(160, 396, 80, 56));
+	insertAnimation("duck", m_animation_duck);
 
 	m_animatedSprite = (new AnimatedSprite(sf::seconds(0.2), true, true));
 	m_animatedSprite->setPosition(400, 400);
@@ -89,7 +118,11 @@ void Player::update(float deltatime)
 	const sf::Vector2f vRight= { 1.f, 1.f };
 	const sf::Vector2f vLeft = { -1.f, 1.f };
 	handleInput(deltatime, gravity);
-	
+	scaleSprite(vLeft, vRight);
+	if (m_eAnimationType == WALKING)
+	{
+		m_animatedSprite->play(*getAnimation("walking"));
+	}
 	if (!onGround)
 	{
 		m_velocity.y += deltatime * gravity.y;
@@ -99,26 +132,7 @@ void Player::update(float deltatime)
 	TestBodyRect.setPosition(m_position);
 	m_animatedSprite->setPosition(m_position);
 	m_animatedSprite->setOrigin(m_animatedSprite->getLocalBounds().width / 2, m_animatedSprite->getLocalBounds().height / 2);
-	if (bLeft)
-	{
-		if (m_animatedSprite->getScale().x > 0)
-		{
-			m_animatedSprite->setScale(vLeft);
-		}
-		bRight = false;
-	}
-	else if (bRight)
-	{
-		if (m_animatedSprite->getScale().x < 0)
-		{
-			m_animatedSprite->setScale(vRight);
-		}
-		bLeft = false;
-	}
-	if (m_eAnimationType == WALKING)
-	{
-		m_animatedSprite->play(*getAnimation("walking"));
-	}
+	
 	m_eAnimationType = IDLE;
 	m_velocity *= 0.9f;
 	onGround = false;
@@ -167,8 +181,29 @@ void Player::handleInput(float deltatime, sf::Vector2f gravity)
 	}
 	if (m_inputMgr->IsDownOnce(sf::Keyboard::F))
 	{
-		shoot(m_gameObjMgr, m_collMgr);
+		shoot();
 	}
+}
+
+void Player::scaleSprite(const sf::Vector2f vLeft, const sf::Vector2f vRight)
+{
+	if (bLeft)
+	{
+		if (m_animatedSprite->getScale().x > 0)
+		{
+			m_animatedSprite->setScale(vLeft);
+		}
+		bRight = false;
+	}
+	else if (bRight)
+	{
+		if (m_animatedSprite->getScale().x < 0)
+		{
+			m_animatedSprite->setScale(vRight);
+		}
+		bLeft = false;
+	}
+	
 }
 
 void Player::onCollision(GameObject* other)
@@ -187,7 +222,7 @@ void Player::onCollision(GameObject* other)
 	//printf("Player::onCollision()\n")
 }
 
-void Player::shoot(GameObjectManager* gameObjMgr, CollisionManager* collMgr)
+void Player::shoot()
 {
 	sf::Vector2f bVel = { 3.f, 0.f };
 	if (m_velocity.x < 0.f) bVel *= -1.f;
@@ -196,8 +231,8 @@ void Player::shoot(GameObjectManager* gameObjMgr, CollisionManager* collMgr)
 	m_bullet->setId(PLAYER_BULLET);
 	m_bullet->setVelocity(bVel);
 	m_bullet->InitTestBody();
-	gameObjMgr->attach(m_bullet);
-	collMgr->Attach(m_bullet->getCollider());
+	m_gameObjMgr->attach(m_bullet);
+	m_collMgr->Attach(m_bullet->getCollider());
 	
 	//avoiding danglers,
 	//actual objects are deleted elswhere from the std::vectors of the managers

@@ -98,7 +98,6 @@ void Player::update(float deltatime)
 	m_boxCollider->SetPosition(m_position);
 	TestBodyRect.setPosition(m_position);
 	m_animatedSprite->setPosition(m_position);
-	
 	m_animatedSprite->setOrigin(m_animatedSprite->getLocalBounds().width / 2, m_animatedSprite->getLocalBounds().height / 2);
 	if (bLeft)
 	{

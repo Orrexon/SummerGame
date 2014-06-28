@@ -69,6 +69,7 @@ void Core::run()
 		window.clear(sf::Color::Black);
 		updateDeltatime();
 		m_GameMgr->Update(m_fdeltatime);
+		m_GameMgr->Draw();
 		window.display();
 
 		m_inputMgr->PostUpdateKeyboard();

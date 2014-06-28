@@ -34,7 +34,10 @@ void GameStateManager::Update(float& p_fDeltatime)
 	m_pCurrentState->Update(p_fDeltatime);
 }
 /* Calls CurrentStates Draw */
-void GameStateManager::Draw(){}
+void GameStateManager::Draw()
+{
+	m_pCurrentState->Draw();
+}
 /* Changes CurrentState into string parameter*/
 void GameStateManager::SetState(const std::string &p_sType)
 {

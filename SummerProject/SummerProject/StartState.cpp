@@ -58,7 +58,6 @@ bool StartState::EnterState()
 	m_player->initAnimation();
 	m_player->getAnimatedSprite()->play(*m_player->getAnimation("idle"));
 
-	Update(m_core->m_fdeltatime);
 	return true;
 }
 
@@ -78,7 +77,7 @@ bool StartState::Update(float p_fDeltatime)
 	m_core->m_collMgr->RemoveColliders();
 	m_core->m_GameObjMgr->removeObjects();
 	
-	Draw();
+	//Draw();
 	return true;
 }
 /*	Draws State*/

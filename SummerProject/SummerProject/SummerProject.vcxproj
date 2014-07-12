@@ -98,6 +98,7 @@
     <ClCompile Include="PlatformObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SalesMan.cpp" />
+    <ClCompile Include="SparseGraph.cpp" />
     <ClCompile Include="SpriteManger.cpp" />
     <ClCompile Include="StartState.cpp" />
   </ItemGroup>
@@ -114,13 +115,20 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="GraphAlgorithms.h" />
+    <ClInclude Include="GraphEdge.h" />
+    <ClInclude Include="GraphNode.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LoseState.h" />
     <ClInclude Include="MathNerd.h" />
+    <ClInclude Include="NavGraphEdge.h" />
+    <ClInclude Include="NavGraphNode.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PlatformObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="SalesMan.h" />
+    <ClInclude Include="SparseGraph.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />

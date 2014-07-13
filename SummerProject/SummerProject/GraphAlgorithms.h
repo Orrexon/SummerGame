@@ -252,8 +252,8 @@ public:
 	template <class graph_type>
 	static double Calculate(const graph_type& G, int nd1, int nd2)
 	{
-		sf::Vector2f vFrom = G.GetNode(nd1).getPosition(););
-		sf::Vector2f vTo = G.GetNode(nd2).getPosition());
+		sf::Vector2f vFrom = G.GetNode(nd1).getPosition();
+		sf::Vector2f vTo = G.GetNode(nd2).getPosition();
 		sf::Vector2f vDist = vTo - vFrom;
 		return sqrt(vDist.x*vDist.x + vDist.y*vDist.y);
 	}

@@ -9,6 +9,11 @@
 #include "PlatformObject.h"
 #include "Bullet.h"
 #include "SalesMan.h"
+#include "GraphFunctions.h"
+#include "SparseGraph.h"
+#include "NavGraphEdge.h"
+#include "NavGraphNode.h"
+
 class StartState : public State
 {
 public:
@@ -41,4 +46,5 @@ private:
 	Bullet* bullet1;
 	Bullet* bullet2;
 	SalesMan* salesman;
+	SparseGraph<NavGraphNode<>, NavGraphEdge> NavGraph;
 };

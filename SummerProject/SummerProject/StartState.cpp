@@ -1,10 +1,12 @@
 //startstate.cpp
 #include <iostream>
+
 #include "StartState.h"
 
 
 
-StartState::StartState(Core* p_Core )
+
+StartState::StartState(Core* p_Core) :NavGraph(false)
 { 
 	m_sCurrentState = "StartState";
 	m_core = p_Core;
@@ -17,6 +19,9 @@ StartState::StartState(Core* p_Core )
 /*	Called upon entering state */
 bool StartState::EnterState()
 {
+	
+	
+	GraphHelper_CreateGrid(NavGraph, 1000, 1000, 5, 5);
 	BoxCollider* collider = new BoxCollider (sf::Vector2f(50, 50), sf::Vector2f(50, 66));
 	m_player = new Player(collider, sf::Vector2f(50, 50), m_core->m_inputMgr,
 		m_core->m_collMgr, m_core->m_GameObjMgr);
@@ -94,6 +99,17 @@ void StartState::Draw()
 	sp.setPosition(500, 500);
 	m_core->window.draw(sp);
 	m_core->window.draw(*m_player->getAnimatedSprite());
+
+	std::vector<sf::CircleShape> nodes = GraphHelper_DrawNode(NavGraph);
+	std::vector<sf::VertexArray> edges = GraphHelper_DrawEdge(NavGraph);
+	for ( auto& it : nodes)
+	{
+		m_core->window.draw(it);
+	}
+	for (auto& it : edges)
+	{
+		m_core->window.draw(it);
+	}
 }
 
 /*	Changes state to the states default Next State */

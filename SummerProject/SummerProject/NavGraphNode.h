@@ -20,9 +20,9 @@ public:
 		stream >> buffer >> m_iIndex >> buffer >> m_position.x >> buffer >> m_position.y;
 	}
 
-	virtual ~NavGraphNode();
+	virtual ~NavGraphNode(){}
 
-	sf::Vector2f getPosition(){ return m_position; }
+	sf::Vector2f getPosition()const{ return m_position; }
 	void setPosition(sf::Vector2f pos) { m_position = pos; }
 
 	extra_info extraInfo()const{ return m_extraInfo; }

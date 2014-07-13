@@ -137,7 +137,7 @@ bool Graph_SearchBFS<graph_type>::Search()
 }
 
 template <class graph_type>
-std::list<int> Graph_SearchBFS<graph_type>::GetPathToTarget()const
+std::list<int> Graph_SearchBFS<graph_type>::getPathToTarget()const
 {
 	std::list<int> path;
 

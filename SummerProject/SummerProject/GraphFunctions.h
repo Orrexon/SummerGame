@@ -6,10 +6,12 @@
 #include "GraphAlgorithms.h"
 #include "MathNerd.h"
 
-//  returns true if x,y is a valid position in the map
-bool ValidNeighbour(int x, int y, int NumCellsX, int NumCellsY)
-{
-	return !((x < 0) || (x >= NumCellsX) || (y < 0) || (y >= NumCellsY));
+namespace{
+	//  returns true if x,y is a valid position in the map
+	bool ValidNeighbour(int x, int y, int NumCellsX, int NumCellsY)
+	{
+		return !((x < 0) || (x >= NumCellsX) || (y < 0) || (y >= NumCellsY));
+	}
 }
 
 //  use to add he eight neighboring edges of a graph node that 
@@ -35,17 +37,17 @@ void GraphHelper_AddAllNeighboursToGridNode(graph_type& graph,
 			if (ValidNeighbour(nodeX, nodeY, NumCellsX, NumCellsY))
 			{
 				//calculate the distance to this node
-				sf::Vector2i PosNode = graph.GetNode(row*NumCellsX + col).getPosition();
-				sf::Vector2i PosNeighbour = graph.GetNode(nodeY*NumCellsX + nodeX).getPosition();
+				sf::Vector2f PosNode = graph.getNode(row*NumCellsX + col).getPosition();
+				sf::Vector2f PosNeighbour = graph.getNode(nodeY*NumCellsX + nodeX).getPosition();
 
-				sf::Vector2i vDist = PosNeighbour - PosNode;
-				double dist = sqrtf(vDist.x * vDist.x - vDist.y * vDist.y);
+				sf::Vector2f vDist = PosNeighbour - PosNode;
+				double dist = sqrtf(static_cast<float>(vDist.x) * static_cast<float>(vDist.x) - static_cast<float>(vDist.y) * static_cast<float>(vDist.y));
 
 				//this neighbour is okay so it can be added
 				graph_type::EdgeType NewEdge(row*NumCellsX + col,
 					nodeY*NumCellsX + nodeX,
 					dist);
-				graph.AddEdge(NewEdge);
+				graph.addEdge(NewEdge);
 
 				//if graph is not a diagraph then an edge needs to be added going
 				//in the other direction
@@ -54,7 +56,7 @@ void GraphHelper_AddAllNeighboursToGridNode(graph_type& graph,
 					graph_type::EdgeType NewEdge(nodeY*NumCellsX + nodeX,
 						row*NumCellsX + col,
 						dist);
-					graph.AddEdge(NewEdge);
+					graph.addEdge(NewEdge);
 				}
 			}
 		}
@@ -103,8 +105,60 @@ void GraphHelper_CreateGrid(graph_type& graph,
 	}
 }
 
+
+
+//the nodeCircle drawfunction, template just to be cool
+template<class graph_type>
+std::vector<sf::CircleShape> GraphHelper_DrawNode(const graph_type& graph)
+{
+	std::vector<sf::CircleShape> temp;
+	if (graph.numNodes() == 0) return temp;
+	//create cyan circles for the nodes and push them in a vector
+	
+	graph_type::ConstNodeIterator nodeItr(graph);
+	for (const graph_type::NodeType* pN = nodeItr.begin();
+		!nodeItr.end();
+		pN = nodeItr.next())
+	{
+		sf::CircleShape s;
+		s.setRadius(2.f);
+		s.setOrigin(2.f, 2.f);
+		s.setPosition(pN->getPosition());
+		s.setFillColor(sf::Color::Cyan);
+		temp.push_back(s);
+	}
+	return temp;
+}
+
+//The edgeLine draw function
+template<class graph_type>
+std::vector<sf::VertexArray> GraphHelper_DrawEdge(const graph_type& graph)
+{
+	std::vector<sf::VertexArray> temp;
+	if (graph.numEdges() == 0) return temp;
+	
+	graph_type::ConstNodeIterator nodeItr(graph);
+	for (const graph_type::NodeType* pN = nodeItr.begin();
+		!nodeItr.end();
+		pN = nodeItr.next())
+	{
+
+		//create cyan lines and push into the vector
+
+		graph_type::ConstEdgeIterator edgeItr(graph, pN->Index());
+		for (const graph_type::EdgeType* pE = edgeItr.begin();
+			!edgeItr.end();
+			pE = edgeItr.next())
+		{
+			sf::VertexArray line(sf::Lines, 2);
+			line[0].position = pN->getPosition();
+			line[1].position = graph.getNode(pE->To()).getPosition();
+			temp.push_back(line);
+		}
+	}
+	return temp;
+}
 //  draws a graph using the GDI
-//TO DO: Fix an sfml draw function instead of GDI
 template <class graph_type>
 void GraphHelper_DrawUsingGDI(const graph_type& graph, int color, bool DrawNodeIDs = false)
 {

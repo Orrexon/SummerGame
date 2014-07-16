@@ -7,8 +7,17 @@ PlatformObject::PlatformObject(Collider* collider, sf::Vector2f position)
 	m_boxCollider = dynamic_cast<BoxCollider*>(collider);
 	m_boxCollider->setParent(this);
 	m_position = position;
-	m_type = "PlatformObject";
 	m_dead = false;
+	m_eType = PLATFORM;
+}
+PlatformObject::PlatformObject(Collider* collider, sf::Vector2f position, sf::Sprite sprite)
+{
+	m_boxCollider = dynamic_cast<BoxCollider*>(collider);
+	m_boxCollider->setParent(this);
+	m_position = position;
+	m_sprite = sprite;
+	m_dead = false;
+	m_eType = PLATFORM;
 }
 void PlatformObject::initTestBody()
 {
@@ -28,4 +37,9 @@ void PlatformObject::onCollision(GameObject* other)
 {
 	
 	//printf("GROUNDNDNDNDNDNDNDNDNDNDNDNDNDNDND");
+}
+
+eTypes PlatformObject::getEType()
+{
+	return m_eType;
 }

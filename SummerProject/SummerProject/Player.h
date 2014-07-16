@@ -40,6 +40,7 @@ public:
 
 	void shoot();
 
+	virtual eTypes getEType() { return m_eType; }
 	Collider* getCollider() { return m_boxCollider; }
 	sf::RectangleShape& GetRect() { return TestBodyRect; }
 	bool isDead() { return m_dead; }

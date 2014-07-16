@@ -90,7 +90,7 @@ void GraphHelper_CreateGrid(graph_type& graph,
 			graph.addNode(NavGraphNode<>(graph.getNextFreeNodeIndex(),
 				sf::Vector2f(midX + (col*CellWidth),
 				midY + (row*CellHeight))));
-
+			
 		}
 	}
 	//now to calculate the edges. (A position in a 2d array [x][y] is the
@@ -121,8 +121,8 @@ std::vector<sf::CircleShape> GraphHelper_DrawNode(const graph_type& graph)
 		pN = nodeItr.next())
 	{
 		sf::CircleShape s;
-		s.setRadius(2.f);
-		s.setOrigin(2.f, 2.f);
+		s.setRadius(4.f);
+		s.setOrigin(4.f, 4.f);
 		s.setPosition(pN->getPosition());
 		s.setFillColor(sf::Color::Cyan);
 		temp.push_back(s);

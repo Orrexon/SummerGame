@@ -32,7 +32,8 @@ bool CircleCollider::overlap(Collider* other, sf::Vector2f& offset)
 }
 void CircleCollider::onCollision(Collider* other)
 {
-	{
+	m_parent->onCollision(other->getParent());
+	/*{
 		CircleCollider* temp = dynamic_cast<CircleCollider*> (other);
 		if (temp)
 		{
@@ -49,6 +50,6 @@ void CircleCollider::onCollision(Collider* other)
 			printf("box vs bullet");
 			m_parent->onCollision(temp->getParent());
 		}
-	}
+	}*/
 }
 

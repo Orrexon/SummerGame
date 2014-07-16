@@ -10,6 +10,7 @@
 #include "Bullet.h"
 #include "SalesMan.h"
 #include "GraphFunctions.h"
+#include "GraphAlgorithms.h"
 #include "SparseGraph.h"
 #include "NavGraphEdge.h"
 #include "NavGraphNode.h"
@@ -42,9 +43,14 @@ private:
 	Player* m_player;
 	PlatformObject* ground0;
 	PlatformObject* ground;
+	PlatformObject* ground1;
 	Bullet* bullet0;
 	Bullet* bullet1;
 	Bullet* bullet2;
 	SalesMan* salesman;
 	SparseGraph<NavGraphNode<>, NavGraphEdge> NavGraph;
+
+	//for drawing
+	std::vector<sf::CircleShape> nodes;
+	std::vector<sf::VertexArray> edges;
 };

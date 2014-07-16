@@ -110,7 +110,8 @@ bool BoxCollider::overlap(Collider* other, sf::Vector2f& offset)
 
 void BoxCollider::onCollision(Collider* other)
 {
-	{
+	m_parent->onCollision(other->getParent());
+	/*{
 		BoxCollider* temp = dynamic_cast<BoxCollider*>(other);
 		if (temp)
 		{
@@ -125,5 +126,5 @@ void BoxCollider::onCollision(Collider* other)
 			std::cout << "Bullet vs Box! \n" << std::endl;
 			m_parent->onCollision(temp->getParent());
 		}
-	}
+	}*/
 }

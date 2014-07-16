@@ -14,7 +14,7 @@ public:
 	virtual void update(float deltatime);
 	virtual Collider* getCollider(){ return m_boxCollider; }
 	virtual bool isDead() { return m_dead; }
-
+	virtual eTypes getEType() { return m_eType; }
 	void initTestBody();
 	sf::RectangleShape getRect() { return m_testBodyRect; }
 

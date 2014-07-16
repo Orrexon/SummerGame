@@ -94,6 +94,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GraphAlgorithms.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathNerd.cpp" />
     <ClCompile Include="PlatformObject.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="GraphFunctions.h" />
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="LoseState.h" />
     <ClInclude Include="MathNerd.h" />
     <ClInclude Include="NavGraphEdge.h" />

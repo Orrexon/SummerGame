@@ -17,7 +17,7 @@ Player::Player(Collider* collider, sf::Vector2f position, InputManager* input,
 	m_inputMgr = input;
 	m_collMgr = collisionmgr;
 	m_gameObjMgr = gameobjmgr;
-	m_type = "Player";
+	m_eType = PLAYER;
 	m_velocity = { 0.f, 0.f };
 	m_eAnimationType = IDLE;
 	onGround = false;
@@ -251,6 +251,7 @@ void Player::scaleSprite(const sf::Vector2f vLeft, const sf::Vector2f vRight)
 
 void Player::onCollision(GameObject* other)
 {
+	sf::Vector2f off = { 0.f, 0.f };
 	PlatformObject* platform = dynamic_cast<PlatformObject*>(other);
 	if (platform != nullptr)
 	{
@@ -258,7 +259,17 @@ void Player::onCollision(GameObject* other)
 		{
   			onGround = true;
 		}
-		m_position += m_boxCollider->getOffset();
+		if (m_collMgr->getCount() > 1)
+		{
+			off = m_boxCollider->getOffset();
+			off /= static_cast<float>(m_collMgr->getCount());
+			m_position += off;
+		}
+		else
+		{
+			m_position += m_boxCollider->getOffset();
+		}
+		
 	}
 	
 	//m_velocity *= 0.9f;

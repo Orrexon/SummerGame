@@ -15,7 +15,7 @@ public:
 	virtual void onCollision(GameObject* other);
 	virtual void update(float deltatime);
 	Collider* getCollider()  { return m_circleCollider; }   
-
+	virtual eTypes getEType(){ return m_eType; }
 	void setVelocity(sf::Vector2f vel) { m_velocity = vel; }
 
 	void InitTestBody();

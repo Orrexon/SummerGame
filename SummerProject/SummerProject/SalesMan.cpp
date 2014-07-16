@@ -21,6 +21,7 @@ void SalesMan::onCollision(GameObject* other)
 			}
 		}
 	}
+	printf("salesman colliding!\n");
 }
 void SalesMan::update(float deltatime)
 {

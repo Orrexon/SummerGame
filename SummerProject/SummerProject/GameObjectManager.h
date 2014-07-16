@@ -15,6 +15,8 @@ public:
 	void initTestBodies();
 	void removeObjects();
 	void draw(sf::RenderWindow& window);
+	GameObject* getGameObject(int i);
+	int getGameObjVecSize();
 private:
 	std::vector<GameObject*> m_aGameObjects;
 };

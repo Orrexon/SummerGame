@@ -380,7 +380,7 @@ int SparseGraph<node_type, edge_type>::addNode(node_type node)
 template <class node_type, class edge_type>
 void SparseGraph<node_type, edge_type>::removeNode(int node)
 {
-	assert(node < static_cast(m_nodes.size()) && "<SparseGraph::removeNode>: invalid node index");
+	assert(node < static_cast<int>(m_nodes.size()) && "<SparseGraph::removeNode>: invalid node index");
 
 	m_nodes[node].setIndex(-1);
 
@@ -593,21 +593,21 @@ template <class node_type, class edge_type>
 bool SparseGraph<node_type, edge_type>::save(std::ofstream& stream) const
 {
 	//save the number of nodes
-	stream << m_Nodes.size() << std::endl;
+	stream << m_nodes.size() << std::endl;
 
 	//iterate through the graph nodes and save them
-	NodeVector::const_iterator curNode = m_Nodes.begin();
-	for (curNode; curNode != m_Nodes.end(); ++curNode)
+	NodeVector::const_iterator curNode = m_nodes.begin();
+	for (curNode; curNode != m_nodes.end(); ++curNode)
 	{
 		stream << *curNode;
 	}
 
 	//save the number of edges
-	stream << NumEdges() << std::endl;
+	stream << numEdges() << std::endl;
 
 
 	//iterate through the edges and save them
-	for (unsigned int nodeIdx = 0; nodeIdx < m_Nodes.size(); ++nodeIdx)
+	for (unsigned int nodeIdx = 0; nodeIdx < m_nodes.size(); ++nodeIdx)
 	{
 		for (EdgeList::const_iterator curEdge = m_Edges[nodeIdx].begin();
 			curEdge != m_Edges[nodeIdx].end(); ++curEdge)
@@ -702,8 +702,8 @@ void SparseGraph<node_type, edge_type>::cullInvalidEdges()
 	{
 		for (EdgeList::iterator curEdge = (*curEdgeList).begin(); curEdge != (*curEdgeList).end(); ++curEdge)
 		{
-			if (m_Nodes[curEdge->To()].Index() == -1 ||
-				m_Nodes[curEdge->From()].Index() == -1)
+			if (m_nodes[curEdge->To()].Index() == -1 ||
+				m_nodes[curEdge->From()].Index() == -1)
 			{
 				curEdge = (*curEdgeList).erase(curEdge);
 			}

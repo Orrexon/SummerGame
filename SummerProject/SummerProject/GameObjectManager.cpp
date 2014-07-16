@@ -76,3 +76,13 @@ void GameObjectManager::draw(sf::RenderWindow& window)
 		}
 	}
 }
+
+GameObject* GameObjectManager::getGameObject(int i)
+{
+	return m_aGameObjects[i];
+}
+
+int GameObjectManager::getGameObjVecSize()
+{
+	return m_aGameObjects.size();
+}

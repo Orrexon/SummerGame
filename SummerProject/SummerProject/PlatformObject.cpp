@@ -18,6 +18,8 @@ PlatformObject::PlatformObject(Collider* collider, sf::Vector2f position, sf::Sp
 	m_sprite = sprite;
 	m_dead = false;
 	m_eType = PLATFORM;
+	m_sprite.setOrigin(m_boxCollider->GetExtention() / 2.f);
+	m_sprite.setPosition(position);
 }
 void PlatformObject::initTestBody()
 {
@@ -35,8 +37,7 @@ void PlatformObject::update(float deltatime)
 }
 void PlatformObject::onCollision(GameObject* other)
 {
-	
-	//printf("GROUNDNDNDNDNDNDNDNDNDNDNDNDNDNDND");
+	printf("GROUNDNDNDNDNDNDNDNDNDNDNDNDNDNDND");
 }
 
 eTypes PlatformObject::getEType()

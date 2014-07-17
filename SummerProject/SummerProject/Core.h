@@ -7,6 +7,8 @@
 #include "InputManager.h"
 #include "GameObjectManager.h"
 #include "SpriteManager.h"
+#include "Level.h"
+
 
 class Core
 {
@@ -26,6 +28,7 @@ public:
 	InputManager* m_inputMgr;
 	GameObjectManager* m_GameObjMgr;
 	SpriteManager* m_spriteMgr;
+	Level* m_level;
 	float m_fdeltatime;
 	sf::Clock m_clock;
 	sf::Time m_timeSinceLastUpdate;

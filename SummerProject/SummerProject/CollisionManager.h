@@ -3,6 +3,7 @@
 #pragma once
 #include <vector>
 #include "Collider.h"
+#include "BoxCollider.h"
 
 class CollisionManager
 {
@@ -15,6 +16,8 @@ public:
 	void setUpCollisionPairs(std::vector<Collider*>& colliders);
 	void Update();
 	void RemoveColliders();
+
+	void adjacencyCheck();
 
 	int getCount(){ return count; }
 private:

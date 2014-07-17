@@ -259,15 +259,18 @@ void Player::onCollision(GameObject* other)
 		{
   			onGround = true;
 		}
-		if (m_collMgr->getCount() > 1)
+		if (m_collMgr->getCount() > 0)
 		{
 			off = m_boxCollider->getOffset();
 			off /= static_cast<float>(m_collMgr->getCount());
+			off.x = floorf(off.x);
+			off.y = floorf(off.y);
 			m_position += off;
+			
 		}
 		else
 		{
-			m_position += m_boxCollider->getOffset();
+			m_position += dynamic_cast<PlatformObject*>(platform)->getCollider()->getOffset();
 		}
 		
 	}
@@ -292,10 +295,7 @@ void Player::shoot()
 	m_gameObjMgr->attach(m_bullet);
 	m_collMgr->Attach(m_bullet->getCollider());
 	
-	//avoiding danglers,
-	//actual objects are deleted elswhere from the std::vectors of the managers
-	collider = nullptr;
-	m_bullet = nullptr;
+	
 }
 
 Animation* Player::getAnimation(std::string name)

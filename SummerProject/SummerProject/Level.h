@@ -9,7 +9,6 @@
 #include "BoxCollider.h"
 #include "PlatformObject.h"
 #include "SpriteManager.h"
-#include "GameObject.h"
 #include "GameObjectManager.h"
 #include "CollisionManager.h"
 
@@ -23,7 +22,7 @@ class Level
 	};
 public:
 	Level(GameObjectManager* gameobjmgr, CollisionManager* collmgr);
-	~Level();
+	~Level(){}
 
 	bool load(std::string filename, SpriteManager* spritemgr);
 

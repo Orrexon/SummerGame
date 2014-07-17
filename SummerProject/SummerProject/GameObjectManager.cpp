@@ -69,10 +69,11 @@ void GameObjectManager::draw(sf::RenderWindow& window)
 			{
 				window.draw(dynamic_cast<Bullet*>(m_aGameObjects[i])->getCircle());
 			}
-			if (dynamic_cast<SalesMan*>(m_aGameObjects[i]))
+			if (dynamic_cast<PlatformObject*>(m_aGameObjects[i]))
 			{
-				window.draw(dynamic_cast<SalesMan*>(m_aGameObjects[i])->getRect());
+				window.draw(dynamic_cast<PlatformObject*>(m_aGameObjects[i])->getSprite());
 			}
+			
 		}
 	}
 }

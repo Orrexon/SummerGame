@@ -10,6 +10,7 @@ Core::Core()
 	m_inputMgr = new InputManager;
 	m_GameObjMgr = new GameObjectManager;
 	m_spriteMgr = new SpriteManager("../data/sprites/");
+	m_level = new Level(m_GameObjMgr, m_collMgr);
 
 	m_fdeltatime = 0.f;
 	m_clock.restart();
@@ -40,6 +41,11 @@ Core::~Core()
 	{
 		delete m_spriteMgr;
 		m_spriteMgr = nullptr;
+	}
+	if (m_level != nullptr)
+	{
+		delete m_level;
+		m_level = nullptr;
 	}
 
 }

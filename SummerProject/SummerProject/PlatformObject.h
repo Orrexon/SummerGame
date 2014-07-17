@@ -19,7 +19,7 @@ public:
 
 	sf::RectangleShape GetRect() { return m_TestBodyRect; }
 	sf::Vector2f getPosition() { return m_position; }
-
+	sf::Sprite getSprite(){ return m_sprite; }
 	bool isDead() { return m_dead; }
 private:
 	sf::RectangleShape m_TestBodyRect;

@@ -85,9 +85,10 @@ bool Level::load(std::string filename, SpriteManager* spritemanager)
 			}
 
 			coords& c = it->second;
-			sf::Sprite sprite = spritemanager->load(filename, c.x, c.y, c.w, c.h);
-			BoxCollider* collider = new BoxCollider(sf::Vector2f(c.x, c.y), sf::Vector2f(c.w, c.h));
-			PlatformObject* platform = new PlatformObject(collider, sf::Vector2f(c.x, c.y), sprite);
+			sf::Sprite sprite = spritemanager->load("platformtiles.png", c.x, c.y, c.w, c.h);
+			BoxCollider* collider = new BoxCollider(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)),
+				sf::Vector2f(static_cast<float>(c.w), static_cast<float>(c.h)));
+			PlatformObject* platform = new PlatformObject(collider, collider->getPosition(), sprite);
 
 			m_collMgr->Attach(collider);
 			m_gameObjMgr->attach(platform);

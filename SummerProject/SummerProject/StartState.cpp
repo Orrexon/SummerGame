@@ -19,13 +19,15 @@ StartState::StartState(Core* p_Core) :NavGraph(false)
 /*	Called upon entering state */
 bool StartState::EnterState()
 {
-
-	GraphHelper_CreateGrid(NavGraph, 1000, 1000, 25, 25);
-	Graph_SearchAStar<SparseGraph<NavGraphNode<>, NavGraphEdge>, Heuristic_Euclid> Astar(NavGraph, 143, 22);
-	BoxCollider* collider = new BoxCollider(sf::Vector2f(50, 50), sf::Vector2f(50, 66));
-	m_player = new Player(collider, sf::Vector2f(50, 50), m_core->m_inputMgr,
+	
+	m_core->m_level->load("../data/map/map.txt", m_core->m_spriteMgr);
+	/*GraphHelper_CreateGrid(NavGraph, 1000, 1000, 25, 25);
+	Graph_SearchAStar<SparseGraph<NavGraphNode<>, NavGraphEdge>, Heuristic_Euclid> Astar(NavGraph, 143, 22);*/
+	BoxCollider* collider = new BoxCollider(m_core->m_level->getPlayerStartPosition(), sf::Vector2f(50, 66));
+	m_player = new Player(collider, m_core->m_level->getPlayerStartPosition(), m_core->m_inputMgr,
 		m_core->m_collMgr, m_core->m_GameObjMgr);
-	BoxCollider* collider2 = new BoxCollider(sf::Vector2f(200, 100), sf::Vector2f(100, 100));
+
+	/*BoxCollider* collider2 = new BoxCollider(sf::Vector2f(200, 100), sf::Vector2f(100, 100));
 	ground0 = new PlatformObject(collider2, sf::Vector2f(200, 100));
 	BoxCollider* colliderm = new BoxCollider(sf::Vector2f(300, 100), sf::Vector2f(100, 100));
 	ground1 = new PlatformObject(colliderm, sf::Vector2f(300, 100));
@@ -40,13 +42,13 @@ bool StartState::EnterState()
 	bullet2 = new Bullet(collider6, sf::Vector2f(300, 300));
 	BoxCollider* collider7 = new BoxCollider(sf::Vector2f(500, 400), sf::Vector2f(50, 40));
 	salesman = new SalesMan(collider7, sf::Vector2f(500, 400));
-
+*/
 
 
 
 	m_player->initTestbody();
 
-	bullet0->setVelocity(sf::Vector2f(2.f, 0.f));
+	/*bullet0->setVelocity(sf::Vector2f(2.f, 0.f));
 	bullet1->setVelocity(sf::Vector2f(-2.f, 0.f));
 
 	m_core->m_GameObjMgr->attach(ground);
@@ -56,17 +58,17 @@ bool StartState::EnterState()
 	m_core->m_GameObjMgr->attach(bullet1);
 	m_core->m_GameObjMgr->attach(bullet2);
 	m_core->m_GameObjMgr->attach(salesman);
-
+*/
 	m_core->m_collMgr->Attach(m_player->getCollider());
-	m_core->m_collMgr->Attach(ground0->getCollider());
+	/*m_core->m_collMgr->Attach(ground0->getCollider());
 	m_core->m_collMgr->Attach(ground->getCollider());
 	m_core->m_collMgr->Attach(ground1->getCollider());
 	m_core->m_collMgr->Attach(bullet0->getCollider());
 	m_core->m_collMgr->Attach(bullet1->getCollider());
 	m_core->m_collMgr->Attach(bullet2->getCollider());
 	m_core->m_collMgr->Attach(salesman->getCollider());
-
-	m_core->m_GameObjMgr->initTestBodies();
+*/
+	/*m_core->m_GameObjMgr->initTestBodies();
 
 	PlatformObject* temp;
 	SparseGraph<NavGraphNode<>, NavGraphEdge>::ConstNodeIterator ConstNodeItr(NavGraph);
@@ -91,7 +93,7 @@ bool StartState::EnterState()
 	nodes = GraphHelper_DrawNode(NavGraph);
 	edges = GraphHelper_DrawEdge(NavGraph);
 	NavGraph.save("Testgrid.txt");
-
+*/
 	m_player->initAnimation();
 	m_player->getAnimatedSprite()->play(*m_player->getAnimation("idle"));
 
@@ -120,10 +122,10 @@ bool StartState::Update(float p_fDeltatime)
 /*	Draws State*/
 void StartState::Draw()
 {
-	m_core->window.draw(ground->GetRect());
+	/*m_core->window.draw(ground->GetRect());*/
 	m_core->window.draw(m_player->GetRect());
-	m_core->window.draw(ground0->GetRect());
-	m_core->window.draw(ground1->GetRect());
+	/*m_core->window.draw(ground0->GetRect());
+	m_core->window.draw(ground1->GetRect());*/
 	m_core->m_GameObjMgr->draw(m_core->window);
 
 	//testing spritemanager
@@ -134,14 +136,14 @@ void StartState::Draw()
 	m_core->window.draw(*m_player->getAnimatedSprite());
 
 	//draw the graph
-	for (auto& it : nodes)
+	/*for (auto& it : nodes)
 	{
 		m_core->window.draw(it);
 	}
 	for (auto& it : edges)
 	{
 		m_core->window.draw(it);
-	}
+	}*/
 }
 
 /*	Changes state to the states default Next State */

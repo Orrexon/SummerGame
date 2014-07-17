@@ -35,7 +35,7 @@ bool BoxCollider::overlap(Collider* other, sf::Vector2f& offset)
 				{
 					if (deltaX >= deltaY)
 					{
-						if (m_position.x >= temp->m_position.x)
+						if (m_position.x <= temp->m_position.x)
 						{
 							deltaX = -deltaX;
 						}
@@ -43,7 +43,7 @@ bool BoxCollider::overlap(Collider* other, sf::Vector2f& offset)
 					}
 					else
 					{
-						if (m_position.y >= temp->m_position.y)
+						if (m_position.y <= temp->m_position.y)
 						{
 							deltaY = -deltaY;
 						}
@@ -110,7 +110,8 @@ bool BoxCollider::overlap(Collider* other, sf::Vector2f& offset)
 
 void BoxCollider::onCollision(Collider* other)
 {
-	m_parent->onCollision(other->getParent());
+		m_parent->onCollision(other->getParent());
+	
 	/*{
 		BoxCollider* temp = dynamic_cast<BoxCollider*>(other);
 		if (temp)

@@ -23,54 +23,16 @@ bool StartState::EnterState()
 	m_core->m_level->load("../data/map/map.txt", m_core->m_spriteMgr);
 	/*GraphHelper_CreateGrid(NavGraph, 1000, 1000, 25, 25);
 	Graph_SearchAStar<SparseGraph<NavGraphNode<>, NavGraphEdge>, Heuristic_Euclid> Astar(NavGraph, 143, 22);*/
-	BoxCollider* collider = new BoxCollider(m_core->m_level->getPlayerStartPosition(), sf::Vector2f(50, 66));
+	BoxCollider* collider = new BoxCollider(m_core->m_level->getPlayerStartPosition(), sf::Vector2f(50, 64));
 	m_player = new Player(collider, m_core->m_level->getPlayerStartPosition(), m_core->m_inputMgr,
 		m_core->m_collMgr, m_core->m_GameObjMgr);
 
-	/*BoxCollider* collider2 = new BoxCollider(sf::Vector2f(200, 100), sf::Vector2f(100, 100));
-	ground0 = new PlatformObject(collider2, sf::Vector2f(200, 100));
-	BoxCollider* colliderm = new BoxCollider(sf::Vector2f(300, 100), sf::Vector2f(100, 100));
-	ground1 = new PlatformObject(colliderm, sf::Vector2f(300, 100));
 
-	BoxCollider* collider3 = new BoxCollider(sf::Vector2f(250, 500), sf::Vector2f(500, 100));
-	ground = new PlatformObject(collider3, sf::Vector2f(250, 500));
-	CircleCollider* collider4 = new CircleCollider(sf::Vector2f(300, 200), 10.f);
-	bullet0 = new Bullet(collider4, sf::Vector2f(300, 200));
-	CircleCollider* collider5 = new CircleCollider(sf::Vector2f(300, 200), 10.f);
-	bullet1 = new Bullet(collider5, sf::Vector2f(600, 200));
-	CircleCollider* collider6 = new CircleCollider(sf::Vector2f(300, 300), 10.f);
-	bullet2 = new Bullet(collider6, sf::Vector2f(300, 300));
-	BoxCollider* collider7 = new BoxCollider(sf::Vector2f(500, 400), sf::Vector2f(50, 40));
-	salesman = new SalesMan(collider7, sf::Vector2f(500, 400));
-*/
+	//m_player->initTestbody();
 
-
-
-	m_player->initTestbody();
-
-	/*bullet0->setVelocity(sf::Vector2f(2.f, 0.f));
-	bullet1->setVelocity(sf::Vector2f(-2.f, 0.f));
-
-	m_core->m_GameObjMgr->attach(ground);
-	m_core->m_GameObjMgr->attach(ground0);
-	m_core->m_GameObjMgr->attach(ground1);
-	m_core->m_GameObjMgr->attach(bullet0);
-	m_core->m_GameObjMgr->attach(bullet1);
-	m_core->m_GameObjMgr->attach(bullet2);
-	m_core->m_GameObjMgr->attach(salesman);
-*/
 	m_core->m_collMgr->Attach(m_player->getCollider());
-	/*m_core->m_collMgr->Attach(ground0->getCollider());
-	m_core->m_collMgr->Attach(ground->getCollider());
-	m_core->m_collMgr->Attach(ground1->getCollider());
-	m_core->m_collMgr->Attach(bullet0->getCollider());
-	m_core->m_collMgr->Attach(bullet1->getCollider());
-	m_core->m_collMgr->Attach(bullet2->getCollider());
-	m_core->m_collMgr->Attach(salesman->getCollider());
-*/
-	/*m_core->m_GameObjMgr->initTestBodies();
 
-	PlatformObject* temp;
+	/*PlatformObject* temp;
 	SparseGraph<NavGraphNode<>, NavGraphEdge>::ConstNodeIterator ConstNodeItr(NavGraph);
 	for (const SparseGraph<NavGraphNode<>, NavGraphEdge>::NodeType* pN = ConstNodeItr.begin();
 		!ConstNodeItr.end();
@@ -92,8 +54,8 @@ bool StartState::EnterState()
 	}
 	nodes = GraphHelper_DrawNode(NavGraph);
 	edges = GraphHelper_DrawEdge(NavGraph);
-	NavGraph.save("Testgrid.txt");
-*/
+	NavGraph.save("Testgrid.txt");*/
+
 	m_player->initAnimation();
 	m_player->getAnimatedSprite()->play(*m_player->getAnimation("idle"));
 
@@ -109,23 +71,22 @@ void StartState::ExitState(){}
 Handles State Update */
 bool StartState::Update(float p_fDeltatime)
 {
+	sf::Vector2f playerPos = m_player->getPosition();
 	m_player->getAnimatedSprite()->update(sf::seconds(p_fDeltatime));
 	m_player->update(p_fDeltatime);
 	m_core->m_GameObjMgr->update(p_fDeltatime);
 	m_core->m_collMgr->Update();
 	m_core->m_collMgr->RemoveColliders();
 	m_core->m_GameObjMgr->removeObjects();
+	m_core->m_view->update(p_fDeltatime, playerPos);
 
-	//Draw();
 	return true;
 }
 /*	Draws State*/
 void StartState::Draw()
 {
-	/*m_core->window.draw(ground->GetRect());*/
-	m_core->window.draw(m_player->GetRect());
-	/*m_core->window.draw(ground0->GetRect());
-	m_core->window.draw(ground1->GetRect());*/
+	m_core->window.setView(m_core->m_view->getOwnView());
+	//m_core->window.draw(m_player->GetRect());
 	m_core->m_GameObjMgr->draw(m_core->window);
 
 	//testing spritemanager

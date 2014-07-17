@@ -37,7 +37,7 @@ void PlatformObject::update(float deltatime)
 }
 void PlatformObject::onCollision(GameObject* other)
 {
-	printf("GROUNDNDNDNDNDNDNDNDNDNDNDNDNDNDND");
+	//printf("GROUNDNDNDNDNDNDNDNDNDNDNDNDNDNDND");
 }
 
 eTypes PlatformObject::getEType()

@@ -42,8 +42,13 @@ public:
 
 	virtual eTypes getEType() { return m_eType; }
 	Collider* getCollider() { return m_boxCollider; }
+	
+	sf::Vector2f getPosition() { return m_position; }
+
 	sf::RectangleShape& GetRect() { return TestBodyRect; }
+	
 	bool isDead() { return m_dead; }
+	
 	Animation* getAnimation(std::string);
 	void insertAnimation(std::string name, Animation* animation);
 	AnimatedSprite* getAnimatedSprite() { return m_animatedSprite; }

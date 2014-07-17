@@ -8,7 +8,7 @@
 #include "GameObjectManager.h"
 #include "SpriteManager.h"
 #include "Level.h"
-
+#include "View.h"
 
 class Core
 {
@@ -29,6 +29,7 @@ public:
 	GameObjectManager* m_GameObjMgr;
 	SpriteManager* m_spriteMgr;
 	Level* m_level;
+	View* m_view;
 	float m_fdeltatime;
 	sf::Clock m_clock;
 	sf::Time m_timeSinceLastUpdate;

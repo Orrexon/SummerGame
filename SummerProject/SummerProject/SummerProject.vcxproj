@@ -103,6 +103,7 @@
     <ClCompile Include="SparseGraph.cpp" />
     <ClCompile Include="SpriteManger.cpp" />
     <ClCompile Include="StartState.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="View.h" />
     <ClInclude Include="WinState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
